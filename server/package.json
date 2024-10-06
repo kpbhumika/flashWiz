@@ -1,0 +1,27 @@
+{
+  "name": "flash-wiz-server",
+  "version": "1.0.0",
+  "description": "Flash wiz server",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kpbhumika/flashWiz.git"
+  },
+  "keywords": [
+    "flashWiz"
+  ],
+  "author": "Bhumika KP",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kpbhumika/flashWiz/issues"
+  },
+  "homepage": "https://github.com/kpbhumika/flashWiz#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "pg": "^8.13.0"
+  }
+}
