@@ -36,3 +36,33 @@
     transform: rotate(360deg);
   }
 }
+
+/* client/src/App.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #333;
+}
+
+h2 {
+  color: #555;
+}
+
+button {
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
