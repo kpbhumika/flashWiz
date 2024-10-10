@@ -39,12 +39,12 @@ passport.use(new GoogleStrategy({
       profile.id
     ], function (err, row) {
       if (err) { return cb(err); }
-      if (!row) {
-        pool.query('INSERT INTO users (name) VALUES ($1)', [
+      if (!(row && row.rowCount)) {
+        pool.query('INSERT INTO users (name) VALUES ($1) RETURNING Id', [
           profile.displayName
-        ], function (err) {
+        ], function (err, result) {
           if (err) { return cb(err); }
-          var id = this.lastID;
+          var id = result.rows[0].id;
           pool.query('INSERT INTO federated_credentials (user_id, provider, subject) VALUES ($1, $2, $3)', [
             id,
             'https://accounts.google.com',
