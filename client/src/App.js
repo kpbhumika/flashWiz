@@ -1,9 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
+import Login from "./auth/Login"
 import React, { useEffect, useState } from 'react';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
 function App() {
   const [message, setMessage] = useState('');
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <div>Hello world!!</div>,
+    },
+    {
+      path: "/login",
+      element: Login
+    }
+  ]);
+
 
   useEffect(() => {
     // Fetch the "Hello World!" message from the backend
@@ -13,11 +29,7 @@ function App() {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
-  return (
-    <div>
-      <h1>{message}</h1> {/* Display the fetched message */}
-    </div>
-  );
+  return <RouterProvider router={router}/>
 }
 
 export default App;
