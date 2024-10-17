@@ -11,8 +11,9 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/server/app.js",
-            "envFile": "${workspaceFolder}/server/.env"
+            "program": "${workspaceFolder}/server/src/app.js",
+            "envFile": "${workspaceFolder}/server/.env",
+            "console": "integratedTerminal"
         },
         {
             "type": "node",
@@ -22,7 +23,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/server/app.js",
+            "program": "${workspaceFolder}/server/src/app.js",
             "runtimeExecutable": "nodemon",
             "restart": true,
             "envFile": "${workspaceFolder}/server/.env"
