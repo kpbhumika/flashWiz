@@ -21,7 +21,7 @@ passport.use(new GoogleStrategy({
   state: true
 },
 
-  // TODO: Manually added this table. Add to automatic migrations
+  // TODO: Manually added these tables. Add to automatic migrations
   /**
    *
   CREATE TABLE IF NOT EXISTS federated_credentials (
@@ -30,6 +30,31 @@ passport.use(new GoogleStrategy({
       subject TEXT NOT NULL,
       PRIMARY KEY (provider, subject)
   );
+
+
+  CREATE TABLE IF NOT EXISTS public.session
+  (
+      sid character varying COLLATE pg_catalog."default" NOT NULL,
+      sess json NOT NULL,
+      expire timestamp(6) without time zone NOT NULL,
+      CONSTRAINT session_pkey PRIMARY KEY (sid)
+  )
+
+  --------------
+  -- Step 1: Create the sequence
+CREATE SEQUENCE IF NOT EXISTS users_id_seq;
+
+-- Step 2: Create the users table
+CREATE TABLE IF NOT EXISTS public.users
+(
+    id integer NOT NULL DEFAULT nextval('users_id_seq'),
+    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT users_pkey PRIMARY KEY (id)
+) TABLESPACE pg_default;
+
+-- Step 3: Set the owner of the table
+ALTER TABLE IF EXISTS public.users
+    OWNER to postgres;
    */
 
 
@@ -37,32 +62,35 @@ passport.use(new GoogleStrategy({
     pool.query('SELECT * FROM federated_credentials WHERE provider = $1 AND subject = $2', [
       'https://accounts.google.com',
       profile.id
-    ], function (err, row) {
+    ], function (err, federatedCredentialsResult) {
       if (err) { return cb(err); }
-      if (!(row && row.rowCount)) {
+      if (!(federatedCredentialsResult && federatedCredentialsResult.rowCount)) {
         pool.query('INSERT INTO users (name) VALUES ($1) RETURNING Id', [
           profile.displayName
         ], function (err, result) {
           if (err) { return cb(err); }
-          var id = result.rows[0].id;
+          var user_id = result.rows[0].id;
           pool.query('INSERT INTO federated_credentials (user_id, provider, subject) VALUES ($1, $2, $3)', [
-            id,
+            user_id,
             'https://accounts.google.com',
             profile.id
           ], function (err) {
             if (err) { return cb(err); }
             var user = {
-              id: id,
+              id: user_id,
               name: profile.displayName
             };
             return cb(null, user);
           });
         });
       } else {
-        pool.query('SELECT id, name FROM users WHERE id = $1', [row.user_id], function (err, row) {
+        row = federatedCredentialsResult.rows[0]
+        pool.query('SELECT id FROM users WHERE id = $1', [row.user_id], function (err, userResult) {
           if (err) { return cb(err); }
-          if (!row) { return cb(null, false); }
-          return cb(null, row);
+          if (!userResult) { return cb(null, false); }
+          row = userResult.rows[0]
+          user = {id: row.id, name: profile.displayName}
+          return cb(null, user);
         });
       }
     });
@@ -79,7 +107,7 @@ passport.use(new GoogleStrategy({
 // and deserialized.
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
-    cb(null, { id: user.id, username: user.username, name: user.name });
+    cb(null, user);
   });
 });
 
@@ -109,7 +137,7 @@ router.get('/success', function (req, res, next) {
 });
 
 // Route to get current authenticated user
-router.get('/auth/user', (req, res) => {
+router.get('/current-user', (req, res) => {
   res.send(req.user ? req.user : null);
 });
 
