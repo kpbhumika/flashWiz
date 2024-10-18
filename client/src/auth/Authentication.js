@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useAuth } from "./provider/AuthProvider";
 import axios from 'axios'
 
@@ -8,19 +8,16 @@ const Authentication = ({ children }) => {
         window.location.href = '/login';
     }
     const fetchCurrentUser = async () => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            if (!user.username) {
-                navigateToLogin();
-            }
-        };
         try {
-            const response = await axios.get('http://localhost:9000/current-user', {
-                headers: { Authorization: token }
-            });
+            const response = await axios.get("http://localhost:9000/current-user",
+                {
+                    withCredentials: true, // Include cookies in the request
+                }
+            );
             console.log("response came", response)
-            login(response.data.user);
-            if (!response.data.user) {
+            const {id, name} = response.data
+            login(id);
+            if (!id) {
                 navigateToLogin();
             }
         } catch (error) {

@@ -1,4 +1,4 @@
-// Referenced: https://github.com/passport/todos-express-google-oauth2
+// Reference: https://github.com/passport/todos-express-google-oauth2
 
 var express = require('express');
 var passport = require('passport');

@@ -1,21 +1,14 @@
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React from "react";
 
 const Login = () => {
-    const [user, setUser] = useState(null);
-    const navigate = useNavigate();
-    const location = useLocation();
-    const redirectPath = location.state?.path || "";
 const handleLogin = () => {
-        // login(user);
+        window.location.href = 'http://localhost:9000/login/federated/google';
     };
     return (
         <>
             <h1>Login Page</h1>
-            <label>Name</label>
-            <input type="text" onChange={(e) => setUser(e.target.value)} />
             <button type="submit" onClick={handleLogin}>
-                Login
+            login with google
             </button>
         </>
     );
