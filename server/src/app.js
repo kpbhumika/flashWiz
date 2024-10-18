@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 9000;
 const app = express();
 
 // Middleware
-app.use(cors()); // Enable CORS
+app.use(cors({credentials: true})); // Enable CORS
 
 app.use(session({
     secret: 'keyboard cat',

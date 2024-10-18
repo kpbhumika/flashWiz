@@ -59,7 +59,7 @@ passport.use(new GoogleStrategy({
           });
         });
       } else {
-        pool.query('SELECT id, * FROM users WHERE id = $1', [row.user_id], function (err, row) {
+        pool.query('SELECT id, name FROM users WHERE id = $1', [row.user_id], function (err, row) {
           if (err) { return cb(err); }
           if (!row) { return cb(null, false); }
           return cb(null, row);
@@ -108,6 +108,10 @@ router.get('/success', function (req, res, next) {
   res.redirect(`${CLIENT_URL}/`);
 });
 
+// Route to get current authenticated user
+router.get('/auth/user', (req, res) => {
+  res.send(req.user ? req.user : null);
+});
 
 /* GET /login/federated/accounts.google.com
  *
