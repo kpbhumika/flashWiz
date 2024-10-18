@@ -4,7 +4,8 @@ const express = require('express');
 const cors = require('cors'); // Import CORS to handle cross-origin requests
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
-
+var csrf = require('csurf');
+var passport = require('passport');
 const pool = require('./db'); // Import the database connection
 const dataRouter = require('./routes/data');
 const indexRouter = require('./routes/index');
@@ -14,9 +15,19 @@ const authRouter = require('./routes/auth');
 const PORT = process.env.PORT || 9000;
 const app = express();
 
-// Middleware
-app.use(cors()); // Enable CORS
+// Step1: Middleware
+const allowedOrigins = ['http://localhost:3000'];
+app.use(cors({credentials: true, 
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps, curl, etc.)
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
 
+})); // Enable CORS
 app.use(session({
     secret: 'keyboard cat',
     resave: false, // don't save session if unmodified
@@ -29,9 +40,11 @@ app.use(session({
         }
     )
 })); //Add session middleware
+app.use(csrf());
+app.use(passport.authenticate('session'));
 app.use(express.json()); // Enable JSON body parsing
 
-// Use the data routes
+// Step2: Use the data routes
 app.use('/', indexRouter);
 app.use('/', authRouter); // Prefix all routes from data.js with /api
 app.use('/api', dataRouter); // Prefix all routes from data.js with /api
