@@ -17,7 +17,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Server2",
+            "name": "Launch Server With Hot Reload",
             "cwd": "${workspaceFolder}/server",
             "skipFiles": [
                 "<node_internals>/**"
@@ -25,7 +25,8 @@
             "program": "${workspaceFolder}/server/app.js",
             "runtimeExecutable": "nodemon",
             "restart": true,
-            "envFile": "${workspaceFolder}/server/.env"
+            "envFile": "${workspaceFolder}/server/.env",
+            "console": "integratedTerminal"
         }
     ]
 }
