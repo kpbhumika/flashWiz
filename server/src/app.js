@@ -16,7 +16,18 @@ const PORT = process.env.PORT || 9000;
 const app = express();
 
 // Step1: Middleware
-app.use(cors({credentials: true})); // Enable CORS
+const allowedOrigins = ['http://localhost:3000'];
+app.use(cors({credentials: true, 
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps, curl, etc.)
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+
+})); // Enable CORS
 app.use(session({
     secret: 'keyboard cat',
     resave: false, // don't save session if unmodified

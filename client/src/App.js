@@ -19,6 +19,10 @@ function App() {
     {
       path: "/login",
       element: <Login />
+    },
+    {
+      path: "/profile",
+      element: <AuthProvider><Authentication><div>Profile page</div></Authentication></AuthProvider>
     }
   ]);
 
