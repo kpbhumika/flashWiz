@@ -7,8 +7,9 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [isUserFetched, setIsUserFetched] = useState(null);
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
+    <AuthContext.Provider value={{ isUserFetched, currentUser, setCurrentUser, setIsUserFetched }}>
       {children}
     </AuthContext.Provider>
   );
