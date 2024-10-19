@@ -4,8 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { AuthContext } from './provider/AuthProvider';
 
 const Login = () => {
-    const authContext = useContext(AuthContext);
-    const { currentUser, setCurrentUser } = authContext;
+    const { currentUser, setCurrentUser } = useContext(AuthContext);
     const redirectToGoogleFederatedLogin = () => {
         window.location.href = 'http://localhost:9000/login/federated/google';
     }

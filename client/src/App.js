@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from "./auth/Login"
+import Profile from "./auth/Profile"
 import Authenticate from './auth/Authentication';
 import {AuthProvider} from './auth/provider/AuthProvider';
 import React, { useEffect, useState } from 'react';
@@ -22,7 +23,7 @@ function App() {
     },
     {
       path: "/profile",
-      element: <Authenticate><div>Profile page</div></Authenticate>
+      element: <Authenticate><Profile/></Authenticate>
     }
   ]);
 
