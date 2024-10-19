@@ -1,9 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from "./auth/Login"
+import Layout from "./layout/Layout"
 import Profile from "./auth/Profile"
 import Authenticate from './auth/Authentication';
-import {AuthProvider} from './auth/provider/AuthProvider';
+import { AuthProvider } from './auth/provider/AuthProvider';
 import React, { useEffect, useState } from 'react';
 import {
   createBrowserRouter,
@@ -23,7 +24,7 @@ function App() {
     },
     {
       path: "/profile",
-      element: <Authenticate><Profile/></Authenticate>
+      element: <Authenticate><Profile /></Authenticate>
     }
   ]);
 
@@ -35,8 +36,12 @@ function App() {
       .then(data => setMessage(data)) // Update the state with the fetched message
       .catch(error => console.error('Error fetching data:', error));
   }, []);
-  
-  return (<AuthProvider><RouterProvider router={router}/></AuthProvider>)
+
+  return (<AuthProvider>
+    <Layout>
+      <RouterProvider router={router} />
+    </Layout>
+  </AuthProvider>)
 }
 
 export default App;
