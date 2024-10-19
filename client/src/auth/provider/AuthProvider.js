@@ -1,27 +1,15 @@
-import React, { createContext, useContext, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-const AuthContext = createContext(null);
+// src/context/AuthProvider.js
+import React, { createContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { Navigate } from 'react-router-dom';
+
+export const AuthContext = createContext();
+
 export const AuthProvider = ({ children }) => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const redirectPath = location.state?.path || "/profile";
-    const [user, setUser] = useState({
-        username: "",
-        permissions: [],
-    });
-    const login = (user) => {
-        if (user === "admin") {
-            setUser({ username: user, permissions: ["view_extra"] });
-        } else {
-            setUser({ username: user, permissions: ["view_about"] });
-        }
-        // navigate(redirectPath, { replace: true });
-    };
-    const logout = () => {
-        setUser({ username: "", permissions: [] });
-    };
-    return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
-};
-export const useAuth = () => {
-    return useContext(AuthContext);
+  const [currentUser, setCurrentUser] = useState(null);
+  return (
+    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

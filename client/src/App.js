@@ -1,8 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from "./auth/Login"
-import Authentication from './auth/Authentication';
-import {AuthProvider} from './auth/provider/AuthProvider';
+import Layout from "./layout/Layout"
+import Profile from "./auth/Profile"
+import Authenticate from './auth/Authentication';
+import { AuthProvider } from './auth/provider/AuthProvider';
 import React, { useEffect, useState } from 'react';
 import {
   createBrowserRouter,
@@ -14,7 +16,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <AuthProvider><Authentication><div>Hello world!!</div></Authentication></AuthProvider>,
+      element: <Authenticate><div>Hello world!!</div></Authenticate>,
     },
     {
       path: "/login",
@@ -22,7 +24,7 @@ function App() {
     },
     {
       path: "/profile",
-      element: <AuthProvider><Authentication><div>Profile page</div></Authentication></AuthProvider>
+      element: <Authenticate><Profile /></Authenticate>
     }
   ]);
 
@@ -35,7 +37,11 @@ function App() {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
-  return (<RouterProvider router={router} />)
+  return (<AuthProvider>
+    <Layout>
+      <RouterProvider router={router} />
+    </Layout>
+  </AuthProvider>)
 }
 
 export default App;
