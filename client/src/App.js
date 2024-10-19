@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from "./auth/Login"
-import Authentication from './auth/Authentication';
+import Authenticate from './auth/Authentication';
 import {AuthProvider} from './auth/provider/AuthProvider';
 import React, { useEffect, useState } from 'react';
 import {
@@ -14,7 +14,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <AuthProvider><Authentication><div>Hello world!!</div></Authentication></AuthProvider>,
+      element: <Authenticate><div>Hello world!!</div></Authenticate>,
     },
     {
       path: "/login",
@@ -22,7 +22,7 @@ function App() {
     },
     {
       path: "/profile",
-      element: <AuthProvider><Authentication><div>Profile page</div></Authentication></AuthProvider>
+      element: <Authenticate><div>Profile page</div></Authenticate>
     }
   ]);
 
@@ -34,8 +34,8 @@ function App() {
       .then(data => setMessage(data)) // Update the state with the fetched message
       .catch(error => console.error('Error fetching data:', error));
   }, []);
-
-  return (<RouterProvider router={router} />)
+  
+  return (<AuthProvider><RouterProvider router={router}/></AuthProvider>)
 }
 
 export default App;
