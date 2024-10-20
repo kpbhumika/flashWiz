@@ -6,7 +6,8 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 var csrf = require('csurf');
 var passport = require('passport');
-const pool = require('./db'); // Import the database connection
+const {pool} = require('./db'); // Import the database connection
+const rootRouter = require('./routes/rootRouter.js');
 const dataRouter = require('./routes/data');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
@@ -17,7 +18,7 @@ const app = express();
 
 // Step1: Middleware
 const allowedOrigins = ['http://localhost:3000'];
-app.use(cors({credentials: true, 
+app.use(cors({credentials: true,
     origin: (origin, callback) => {
         // Allow requests with no origin (like mobile apps, curl, etc.)
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
@@ -48,6 +49,7 @@ app.use(express.json()); // Enable JSON body parsing
 app.use('/', indexRouter);
 app.use('/', authRouter); // Prefix all routes from data.js with /api
 app.use('/api', dataRouter); // Prefix all routes from data.js with /api
+app.use(rootRouter);
 
 // Start the server
 app.listen(PORT, () => {

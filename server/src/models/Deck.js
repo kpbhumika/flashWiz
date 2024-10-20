@@ -8,7 +8,7 @@ class Deck extends Model {
     static get jsonSchema() {
         return {
             type: "object",
-            required: ["title", "userId", "isPublic"],
+            required: ["title", "userid", "isPublic"],
             properties: {
                 id: { type: "integer" },
                 title: { type: "string", minLength: 1 },
