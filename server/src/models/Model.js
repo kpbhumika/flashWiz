@@ -1,5 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-const ObjectionModel = require("objection").Model;
+const {Model: ObjectionModel} = require("objection");
+const {knex} = require("../db")
+
 
 /**
  * Abstract model for Transporter ORM
@@ -20,4 +22,5 @@ class Model extends ObjectionModel {
   }
 }
 
+Model.knex(knex);
 module.exports = Model;

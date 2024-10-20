@@ -7,7 +7,7 @@ const router = express.Router();
 // API route to get data from the database
 router.get('/data', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM users'); // Replace 'yourTable' with your actual table name
+        const result = await pool.query('SELECT * FROM users');
         res.json(result.rows);
     } catch (err) {
         console.error(err.message);
