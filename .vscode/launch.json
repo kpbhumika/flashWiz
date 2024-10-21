@@ -27,6 +27,19 @@
             "restart": true,
             "envFile": "${workspaceFolder}/server/.env",
             "console": "integratedTerminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Client With Hot Reload",
+            "cwd": "${workspaceFolder}/client",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "start",
+            "runtimeExecutable": "react-scripts",
+            "restart": true,
+            "console": "integratedTerminal"
         }
     ]
 }
