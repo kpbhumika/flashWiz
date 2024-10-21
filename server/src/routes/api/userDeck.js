@@ -6,7 +6,6 @@ const userDeckRouter = express.Router();
 // fetch user decks
 userDeckRouter.get("/", async (req, res) => {
     const userID = req.user.id
-    console.log(userID)
     try {
         const decks = await Deck.query().where('userid', userID);
         return res.status(200).json({ decks })
