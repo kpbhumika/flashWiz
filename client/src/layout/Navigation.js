@@ -25,8 +25,8 @@ const Navigation = () => {
                   </a>
                 </li>
                 <li className='nav-item'>
-                  <a className='nav-link' href='/'>
-                    Link
+                  <a className='nav-link' href='/decks'>
+                    My Decks
                   </a>
                 </li>
                 <li className='nav-item dropdown'>
@@ -75,7 +75,7 @@ const Navigation = () => {
                   aria-label='Search'
                 />
                 <button className='btn btn-outline-success' type='submit'>
-                  Search
+                  Sign Out
                 </button>
               </form>
             </div>
