@@ -1,26 +1,40 @@
 // routes/flashcards.js
 const express = require('express');
-const Flashcard = require('../models/Flashcard');
+const Flashcard = require('../../models/Flashcard')
 
-const router = express.Router();
+const flashcardRouter = express.Router();
 
-// Create a new flashcard
-router.post('/', async (req, res) => {
-  const { question, answer, deckId } = req.body;
 
-  if (!question || !answer || !deckId) {
-    return res.status(400).json({ message: 'Question, answer, and deckId are required.' });
-  }
-
+// Fetch all flashcards for a deck
+flashcardRouter.get("/:deckId", async (req,res) => {
+  const deckId = req.params.deckId
   try {
-    const flashcard = await Flashcard.create({ question, answer, deckId });
-    res.status(201).json(flashcard);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+      const flashcards = await Flashcard.query().where('deckid', deckId)
+      return res.status(200).json({ flashcards })
+  }catch (error) {
+    console.error("Error fetching decks:", error);
+    return res.status(500).json({ errors: error.message || "Internal Server Error" });
   }
-});
+})
+
+
+// // Create a new flashcard
+// flashcardRouter.post('/', async (req, res) => {
+//   const { question, answer, deckId } = req.body;
+
+//   if (!question || !answer || !deckId) {
+//     return res.status(400).json({ message: 'Question, answer, and deckId are required.' });
+//   }
+
+//   try {
+//     const flashcard = await Flashcard.create({ question, answer, deckId });
+//     res.status(201).json(flashcard);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// });
 
 // Additional flashcard routes can go here (e.g., GET, UPDATE, DELETE)
 
-module.exports = router;
+module.exports = flashcardRouter;

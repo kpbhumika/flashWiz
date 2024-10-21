@@ -5,6 +5,8 @@ import Layout from "./layout/Layout"
 import Profile from "./auth/Profile"
 import Authenticate from './auth/Authentication';
 import { AuthProvider } from './auth/provider/AuthProvider';
+import Decks from './components/Decks';
+import Deck from './components/Deck';
 import React, { useEffect, useState } from 'react';
 import {
   createBrowserRouter,
@@ -25,7 +27,16 @@ function App() {
     {
       path: "/profile",
       element: <Authenticate><Profile /></Authenticate>
+    },
+    {
+      path: "/decks",
+      element: <Authenticate><Decks /></Authenticate>
+    },
+    {
+      path: "/flashcard/:deckId",
+      element: <Authenticate><Deck /></Authenticate>
     }
+
   ]);
 
 
