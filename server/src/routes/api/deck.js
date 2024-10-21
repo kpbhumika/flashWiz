@@ -6,9 +6,14 @@ const deckRouter = express.Router();
 
 
 // Fetch all decks
-deckRouter.get("/decks", async (req,res) => {
-        const decks = await Deck.query()
-        return res.status(200).json({decks:decks })
+deckRouter.get("/", async (req,res) => {
+        try {
+                const decks = await Deck.query();
+                return res.status(200).json({decks: decks})
+            } catch (error) {
+                console.error("Error fetching decks:", error);
+                return res.status(500).json({ errors: error.message || "Internal Server Error" });
+            }
 })
 
 

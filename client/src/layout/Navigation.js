@@ -75,7 +75,7 @@ const Navigation = () => {
                   aria-label='Search'
                 />
                 <button className='btn btn-outline-success' type='submit'>
-                  Search
+                  Sign Out
                 </button>
               </form>
             </div>

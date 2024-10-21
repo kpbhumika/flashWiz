@@ -3,7 +3,7 @@
 var express = require('express');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20');
-var pool = require('../db');
+var {pool} = require('../db');
 var {CLIENT_URL} = require('../const')
 
 
