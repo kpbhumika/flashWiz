@@ -16,7 +16,7 @@ const Authenticate = ({ children }) => {
   }
 
   useEffect(() => {
-    if (isUserFetched == null) {
+    if (!isUserFetched) {
       fetchCurrentUser();
     }
   }, []);
