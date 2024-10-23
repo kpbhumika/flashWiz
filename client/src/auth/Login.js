@@ -23,7 +23,9 @@ const Login = () => {
         }
     };
     const handleLogin = () => {
-        return fetchCurrentUser();
+        return fetchCurrentUser().then(()=>{
+            console.log("User Fetched")
+        });
     };
     if (currentUser) {
         return (<Navigate to="/profile" />)
