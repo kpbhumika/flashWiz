@@ -1,3 +1,4 @@
+import {LoginSection} from "./LoginSection"
 const Navigation = () => {
     return (
       <div>
@@ -67,17 +68,7 @@ const Navigation = () => {
                   </a>
                 </li>
               </ul>
-              <form className='d-flex' role='search'>
-                <input
-                  className='form-control me-2'
-                  type='search'
-                  placeholder='Search'
-                  aria-label='Search'
-                />
-                <button className='btn btn-outline-success' type='submit'>
-                  Sign Out
-                </button>
-              </form>
+              <LoginSection/>
             </div>
           </div>
         </nav>
