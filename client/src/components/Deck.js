@@ -31,7 +31,7 @@ const Deck = (props) => {
     };
 
     const showAnswerHandler = () => {
-        setShowAnswer(!showAnswer); // Toggle answer visibility
+        setShowAnswer(prevState => !prevState); // Toggle answer visibility
     };
 
     if (flashcards.length === 0) {
@@ -56,16 +56,17 @@ const Deck = (props) => {
 
             {/* Navigation buttons */}
             <div className="mt-3">
-                <button className="btn btn-secondary me-2" onClick={goToPrev} disabled={currentIndex === 0}>
+                <button className="btn btn-custom-secondary me-2" onClick={goToPrev} disabled={currentIndex === 0}>
                     Previous
                 </button>
-                <button className="btn btn-primary" onClick={showAnswerHandler}>
+                <button className="btn btn-custom-primary" onClick={showAnswerHandler}>
                     {showAnswer ? "Hide Answer" : "Show Answer"}
                 </button>
-                <button className="btn btn-secondary ms-2" onClick={goToNext} disabled={currentIndex === flashcards.length - 1}>
+                <button className="btn btn-custom-secondary ms-2" onClick={goToNext} disabled={currentIndex === flashcards.length - 1}>
                     Next
                 </button>
             </div>
+
 
             <p className="mt-2">Flashcard {currentIndex + 1} of {flashcards.length}</p>
         </div>
