@@ -1,66 +1,76 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import getFlashcards from "../apiClient/getFlashcards";
 import { useParams } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import '../Deck.css'; // Import custom CSS for flip effect
 
-const Deck = (prop) => {
-    const [flashcards, setFlashcards] = useState([0])
-    const {deckId} = useParams();
+const Deck = (props) => {
+    const [flashcards, setFlashcards] = useState([]);
+    const { deckId } = useParams();
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [showAnswer, setShowAnswer] = useState(false);
 
     useEffect(() => {
         getFlashcards(deckId).then(flashcards => {
-            setFlashcards(flashcards)
-        }, [deckId])
-    })
+            setFlashcards(flashcards);
+        });
+    }, [deckId]);
 
-    // Handle going to the next flashcard
     const goToNext = () => {
         if (currentIndex < flashcards.length - 1) {
             setCurrentIndex(currentIndex + 1);
+            setShowAnswer(false);
         }
     };
 
-    // Handle going to the previous flashcard
     const goToPrev = () => {
         if (currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);
+            setShowAnswer(false);
         }
     };
 
-    // If there are no flashcards, show a message
+    const showAnswerHandler = () => {
+        setShowAnswer(prevState => !prevState); // Toggle answer visibility
+    };
+
     if (flashcards.length === 0) {
         return <p>No flashcards in this deck yet.</p>;
     }
 
-    // Get the current flashcard to display
     const currentFlashcard = flashcards[currentIndex];
 
     return (
-        <div>
+        <div className="text-center">
             <h2>Flashcards for Deck {deckId}</h2>
 
-            {/* Show the current flashcard */}
-            <div>
-                <p><strong>Question:</strong> {currentFlashcard.question}</p>
-                <p><strong>Answer:</strong> {currentFlashcard.answer}</p>
+            {/* Flashcard container */}
+            <div className={`card flashcard ${showAnswer ? 'flipped' : ''}`}>
+                <div className="card-front">
+                    <p><strong>Question:</strong> {currentFlashcard.question}</p>
+                </div>
+                <div className="card-back">
+                    <p><strong>Answer:</strong> {currentFlashcard.answer}</p>
+                </div>
             </div>
 
             {/* Navigation buttons */}
-            <div>
-                <button onClick={goToPrev} disabled={currentIndex === 0}>
+            <div className="mt-3">
+                <button className="btn btn-custom-secondary me-2" onClick={goToPrev} disabled={currentIndex === 0}>
                     Previous
                 </button>
-                <button onClick={goToNext} disabled={currentIndex === flashcards.length - 1}>
+                <button className="btn btn-custom-primary" onClick={showAnswerHandler}>
+                    {showAnswer ? "Hide Answer" : "Show Answer"}
+                </button>
+                <button className="btn btn-custom-secondary ms-2" onClick={goToNext} disabled={currentIndex === flashcards.length - 1}>
                     Next
                 </button>
             </div>
 
-            {/* Display flashcard number */}
-            <p>Flashcard {currentIndex + 1} of {flashcards.length}</p>
+
+            <p className="mt-2">Flashcard {currentIndex + 1} of {flashcards.length}</p>
         </div>
     );
-
 }
 
-
-export default Deck
+export default Deck;
