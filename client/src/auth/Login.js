@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from './provider/AuthProvider';
@@ -14,9 +14,6 @@ const Login = () => {
             if (response.data) {
                 setCurrentUser(response.data);
             }
-            else {
-                redirectToGoogleFederatedLogin();
-            }
         } catch (error) {
             setCurrentUser(null);
             redirectToGoogleFederatedLogin();
@@ -24,19 +21,28 @@ const Login = () => {
     };
     const handleLogin = () => {
         return fetchCurrentUser().then(()=>{
-            console.log("User Fetched")
+            if (!currentUser){
+                console.log("User not logged in redirecting")
+                redirectToGoogleFederatedLogin()
+            }
         });
     };
+
+    useEffect(()=>{
+        handleLogin();
+    },[handleLogin])
+
+
     if (currentUser) {
         return (<Navigate to="/profile" />)
     }
 
     return (
         <>
-            <h1>Login Page</h1>
-            <button onClick={handleLogin}>
+            logging in.....
+            {/* <button onClick={handleLogin}>
                 login with google
-            </button>
+            </button> */}
         </>
     );
 };

@@ -18,7 +18,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Authenticate><div>Hello world!!</div></Authenticate>,
+      element: <>Welcome to FlashWiz!!</>
     },
     {
       path: "/login",

@@ -16,7 +16,7 @@ const Decks = (props) => {
         navigate(`/flashcard/${deckId}`);
     };
 
-    const decks = userDecks.map((deck) => (
+    const decks = userDecks && userDecks.map((deck) => (
         <button
             key={deck.id}
             onClick={() => handleDeckClick(deck.id)}
@@ -27,8 +27,8 @@ const Decks = (props) => {
 
     return (
         <div>
-            {userDecks.length == 0 ? <h3>You don't have any listings yet.</h3> : (
-                <div> {decks} </div>
+            {userDecks && userDecks.length > 0 ? <div> {decks} </div>  : (
+                <>You don't have any decks yet.</>
             )}
         </div>
     )
