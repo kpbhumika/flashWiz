@@ -5,8 +5,8 @@ const flashcardRouter = require("./api/flashcard.js");
 
 const rootRouter = new express.Router();
 
-rootRouter.use("/api/deck", deckRouter);
-rootRouter.use("/api/userDeck", userDeckRouter);
-rootRouter.use("/api/flashcard", flashcardRouter);
+rootRouter.use("/api/decks", deckRouter);
+rootRouter.use("/api/userDecks", userDeckRouter);
+rootRouter.use("/api/flashcards", flashcardRouter);
 
 module.exports = rootRouter;
