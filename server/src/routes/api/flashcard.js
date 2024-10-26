@@ -5,8 +5,8 @@ const Flashcard = require("../../models/Flashcard");
 const flashcardRouter = express.Router();
 
 // Fetch all flashcards for a deck
-flashcardRouter.get("/:deckId", async (req, res) => {
-  const deckId = req.params.deckId;
+flashcardRouter.get("/", async (req, res) => {
+  const deckId = req.query.deckId;
   try {
     const flashcards = await Flashcard.query().where("deckid", deckId);
     return res.status(200).json({ flashcards });

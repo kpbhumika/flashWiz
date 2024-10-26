@@ -38,7 +38,7 @@ function App() {
       ),
     },
     {
-      path: "/flashcard/:deckId",
+      path: "/decks/:deckId/flashcards",
       element: (
         <Authenticate>
           <Deck />

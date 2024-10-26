@@ -13,7 +13,7 @@ const Decks = (props) => {
   });
 
   const handleDeckClick = (deckId) => {
-    navigate(`/flashcard/${deckId}`);
+    navigate(`/decks/${deckId}/flashcards`);
   };
 
   const decks =

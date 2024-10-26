@@ -1,6 +1,6 @@
 const getFlashcards = async (deckId) => {
   try {
-    const response = await fetch(`/api/flashcard/${deckId}`);
+    const response = await fetch(`/api/flashcards?deckId=${deckId}`);
     if (!response.status) {
       const error = new Error(`${response.status} (${response.statusText})`);
       throw error;
