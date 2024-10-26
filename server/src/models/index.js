@@ -4,7 +4,7 @@ const Deck = require("./Deck");
 const Flashcard = require("./Flashcard");
 
 module.exports = {
-    User,
-    Deck,
-    Flashcard,
+  User,
+  Deck,
+  Flashcard,
 };

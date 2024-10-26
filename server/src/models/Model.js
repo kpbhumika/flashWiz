@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-const {Model: ObjectionModel} = require("objection");
-const {knex} = require("../db")
-
+const { Model: ObjectionModel } = require("objection");
+const { knex } = require("../db");
 
 /**
  * Abstract model for Transporter ORM
