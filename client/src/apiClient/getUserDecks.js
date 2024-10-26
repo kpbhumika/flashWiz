@@ -1,6 +1,6 @@
 const getUserDecks = async () => {
   try {
-    const response = await fetch("/api/userDeck");
+    const response = await fetch("/api/userDecks");
     if (!response.status) {
       const error = new Error(`${response.status} (${response.statusText})`);
       throw error;
