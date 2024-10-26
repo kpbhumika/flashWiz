@@ -1,61 +1,61 @@
 .flashcard {
-    width: 300px; /* Adjust to your desired width */
-    height: 200px; /* Adjust to your desired height */
-    perspective: 1000px; /* Enable 3D perspective */
-    margin: auto; /* Center the card */
-    transition: transform 0.6s; /* Smooth transition for flipping */
-    position: relative; /* Position relative for absolute children */
-    border: 2px solid #433878;
+  width: 300px; /* Adjust to your desired width */
+  height: 200px; /* Adjust to your desired height */
+  perspective: 1000px; /* Enable 3D perspective */
+  margin: auto; /* Center the card */
+  transition: transform 0.6s; /* Smooth transition for flipping */
+  position: relative; /* Position relative for absolute children */
+  border: 2px solid #433878;
 }
 
-.card-front, .card-back {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    backface-visibility: hidden; /* Hide back side when facing away */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    background-color: #f8f9fa; /* Light background color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.6s; /* Smooth transition for the card's sides */
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden; /* Hide back side when facing away */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #f8f9fa; /* Light background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.6s; /* Smooth transition for the card's sides */
 }
 
 .card-front {
-    background-color: #FFE1FF; /* Light background color for the front */
-    color: #433878;
-    font-weight: bold;
+  background-color: #ffe1ff; /* Light background color for the front */
+  color: #433878;
+  font-weight: bold;
 }
 
 .card-back {
-    transform: rotateY(180deg); /* Hide back side initially */
-    background-color: #E4B1F0;
-    color: #433878;
-    font-weight: bold;
+  transform: rotateY(180deg); /* Hide back side initially */
+  background-color: #e4b1f0;
+  color: #433878;
+  font-weight: bold;
 }
 
 .flipped .card-front {
-    transform: rotateY(180deg); /* Rotate front */
+  transform: rotateY(180deg); /* Rotate front */
 }
 
 .flipped .card-back {
-    transform: rotateY(0); /* Show back */
+  transform: rotateY(0); /* Show back */
 }
 
 .btn-custom-primary {
-    background-color: #433878; /* Green background */
-    color: white; /* White text */
-    font-weight: bold;
-    border: #FFE1FF; /* No border */
+  background-color: #433878; /* Green background */
+  color: white; /* White text */
+  font-weight: bold;
+  border: #ffe1ff; /* No border */
 }
 
 .btn-custom-secondary {
-    background-color: #433878; /* Red background */
-    color: white; /* White text */
-    font-weight: bold;
-    border: #FFE1FF; /* No border */
+  background-color: #433878; /* Red background */
+  color: white; /* White text */
+  font-weight: bold;
+  border: #ffe1ff; /* No border */
 }
-

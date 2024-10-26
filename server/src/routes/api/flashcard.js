@@ -1,22 +1,22 @@
 // routes/flashcards.js
-const express = require('express');
-const Flashcard = require('../../models/Flashcard')
+const express = require("express");
+const Flashcard = require("../../models/Flashcard");
 
 const flashcardRouter = express.Router();
 
-
 // Fetch all flashcards for a deck
-flashcardRouter.get("/:deckId", async (req,res) => {
-  const deckId = req.params.deckId
+flashcardRouter.get("/:deckId", async (req, res) => {
+  const deckId = req.params.deckId;
   try {
-      const flashcards = await Flashcard.query().where('deckid', deckId)
-      return res.status(200).json({ flashcards })
-  }catch (error) {
+    const flashcards = await Flashcard.query().where("deckid", deckId);
+    return res.status(200).json({ flashcards });
+  } catch (error) {
     console.error("Error fetching decks:", error);
-    return res.status(500).json({ errors: error.message || "Internal Server Error" });
+    return res
+      .status(500)
+      .json({ errors: error.message || "Internal Server Error" });
   }
-})
-
+});
 
 // // Create a new flashcard
 // flashcardRouter.post('/', async (req, res) => {
