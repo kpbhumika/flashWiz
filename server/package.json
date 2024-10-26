@@ -6,6 +6,8 @@
   "scripts": {
     "test": "test",
     "start": "npx nodemon src/app.js",
+    "format": "prettier --write .",
+    "check": "prettier --check .",
     "migrate:latest": "knex --knexfile ./knexfile.cjs migrate:latest",
     "migrate:make": "knex --knexfile ./knexfile.cjs migrate:make"
   },
@@ -37,6 +39,7 @@
     "pg": "^8.13.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "prettier": "^3.3.3"
   }
 }

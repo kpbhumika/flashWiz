@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "format": "npm run format --prefix ./server && npm run format --prefix ./client"
+    }
+}

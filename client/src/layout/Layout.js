@@ -1,7 +1,6 @@
-import Navigation from './Navigation'
-import Footer from './Footer'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Navigation from "./Navigation";
+import Footer from "./Footer";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Layout = ({ children }) => {
   return (
@@ -10,8 +9,7 @@ const Layout = ({ children }) => {
       <main>{children}</main>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Layout
-
+export default Layout;

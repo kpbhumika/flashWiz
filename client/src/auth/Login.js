@@ -1,43 +1,48 @@
-import React, { useContext } from 'react';
-import axios from 'axios';
-import { Navigate } from 'react-router-dom';
-import { AuthContext } from './provider/AuthProvider';
+import React, { useContext, useEffect } from "react";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "./provider/AuthProvider";
 
 const Login = () => {
-    const { currentUser, setCurrentUser } = useContext(AuthContext);
-    const redirectToGoogleFederatedLogin = () => {
-        window.location.href = 'http://localhost:9000/login/federated/google';
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const redirectToGoogleFederatedLogin = () => {
+    window.location.href = "http://localhost:9000/login/federated/google";
+  };
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await axios.get("/current-user");
+      if (response.data) {
+        setCurrentUser(response.data);
+      }
+    } catch (error) {
+      setCurrentUser(null);
+      redirectToGoogleFederatedLogin();
     }
-    const fetchCurrentUser = async () => {
-        try {
-            const response = await axios.get('/current-user');
-            if (response.data) {
-                setCurrentUser(response.data);
-            }
-            else {
-                redirectToGoogleFederatedLogin();
-            }
-        } catch (error) {
-            setCurrentUser(null);
-            redirectToGoogleFederatedLogin();
-        }
-    };
-    const handleLogin = () => {
-        return fetchCurrentUser().then(()=>{
-            console.log("User Fetched")
-        });
-    };
-    if (currentUser) {
-        return (<Navigate to="/profile" />)
-    }
+  };
+  const handleLogin = () => {
+    return fetchCurrentUser().then(() => {
+      if (!currentUser) {
+        console.log("User not logged in redirecting");
+        redirectToGoogleFederatedLogin();
+      }
+    });
+  };
 
-    return (
-        <>
-            <h1>Login Page</h1>
-            <button onClick={handleLogin}>
+  useEffect(() => {
+    handleLogin();
+  }, [handleLogin]);
+
+  if (currentUser) {
+    return <Navigate to="/profile" />;
+  }
+
+  return (
+    <>
+      logging in.....
+      {/* <button onClick={handleLogin}>
                 login with google
-            </button>
-        </>
-    );
+            </button> */}
+    </>
+  );
 };
 export default Login;

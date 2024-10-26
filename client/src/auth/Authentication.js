@@ -1,30 +1,19 @@
 // src/components/Authenticate.js
-import React, { useContext, useEffect } from 'react';
-import { AuthContext } from './provider/AuthProvider';
-import { Navigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useContext } from "react";
+import { AuthContext } from "./provider/AuthProvider";
+import { Navigate } from "react-router-dom";
 
 const Authenticate = ({ children }) => {
-  const { isUserFetched, currentUser, setCurrentUser, setIsUserFetched } = useContext(AuthContext);
+  const { isUserFetched, currentUser } = useContext(AuthContext);
 
-  const fetchCurrentUser = async () => {
-    const response = await axios.get('/current-user');
-    if (response.data) {
-      setCurrentUser(response.data);
+  if (isUserFetched) {
+    if (!currentUser) {
+      return <Navigate to="/login" />;
+    } else {
+      return children;
     }
-    setIsUserFetched(true);
   }
-
-  useEffect(() => {
-    if (!isUserFetched) {
-      fetchCurrentUser();
-    }
-  }, []);
-
-  if (isUserFetched && !currentUser) {
-    return <Navigate to="/login" />;
-  }
-  return children
+  return <>loading ...</>;
 };
 
 export default Authenticate;

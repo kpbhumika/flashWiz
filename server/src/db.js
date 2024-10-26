@@ -1,24 +1,24 @@
 // db.js
-const { Pool } = require('pg');
-const knex = require('knex');
+const { Pool } = require("pg");
+const knex = require("knex");
 
 // Create a PostgreSQL connection pool
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'flashwiz',
-  password: 'postgres',
+  user: "postgres",
+  host: "localhost",
+  database: "flashwiz",
+  password: "postgres",
   port: 5432,
 });
 
 // Create a Knex instance
 const knexInstance = knex({
-  client: 'pg',
+  client: "pg",
   connection: {
-    host: 'localhost',
-    user: 'postgres',
-    password: 'postgres',
-    database: 'flashwiz',
+    host: "localhost",
+    user: "postgres",
+    password: "postgres",
+    database: "flashwiz",
     port: 5432,
   },
 });
