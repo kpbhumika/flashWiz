@@ -8,7 +8,7 @@ const flashcardRouter = express.Router();
 flashcardRouter.get("/", async (req, res) => {
   const deckId = req.query.deckId;
   try {
-    const flashcards = await Flashcard.query().where("deckid", deckId);
+    const flashcards = await Flashcard.query().where("deckId", deckId);
     return res.status(200).json({ flashcards });
   } catch (error) {
     console.error("Error fetching decks:", error);

@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/server/app.js",
+            "program": "${workspaceFolder}/server/src/app.js",
             "envFile": "${workspaceFolder}/server/.env"
         },
         {
@@ -22,7 +22,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/server/app.js",
+            "program": "${workspaceFolder}/server/src/app.js",
             "runtimeExecutable": "nodemon",
             "restart": true,
             "envFile": "${workspaceFolder}/server/.env",

@@ -13,7 +13,6 @@ class Flashcard extends Model {
         id: { type: "integer" },
         question: { type: "string", minLength: 1 },
         answer: { type: "string", minLength: 1 },
-        created_at: { type: "string", format: "date-time" },
         deckId: { type: "integer" },
       },
     };

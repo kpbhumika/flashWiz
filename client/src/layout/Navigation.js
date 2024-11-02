@@ -1,3 +1,4 @@
+
 import { LoginSection } from "./LoginSection";
 
 const Navigation = () => {
@@ -21,14 +22,19 @@ const Navigation = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="/">
                   Home
                 </a>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <a className="nav-link" href="/decks">
                   My Decks
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/deck/add">
+                  Add Deck
                 </a>
               </li>
               <li className="nav-item dropdown">
