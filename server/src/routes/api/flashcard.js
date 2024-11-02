@@ -18,23 +18,35 @@ flashcardRouter.get("/", async (req, res) => {
   }
 });
 
-// // Create a new flashcard
-// flashcardRouter.post('/', async (req, res) => {
-//   const { question, answer, deckId } = req.body;
+// Create a new flashcard
+flashcardRouter.post("/", async (req, res) => {
+  const { question, answer, deckId } = req.body;
 
-//   if (!question || !answer || !deckId) {
-//     return res.status(400).json({ message: 'Question, answer, and deckId are required.' });
-//   }
+  // Basic validation to check if required fields are provided
+  if (!question || !answer || !deckId) {
+    return res.status(400).json({ message: "Question, answer, and deckId are required." });
+  }
 
-//   try {
-//     const flashcard = await Flashcard.create({ question, answer, deckId });
-//     res.status(201).json(flashcard);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// });
+  try {
+    // Use Knex and Objection to insert and fetch the newly created flashcard
+    const flashcard = await Flashcard.query().insertAndFetch({
+      question,
+      answer,
+      deckId,
+    });
 
-// Additional flashcard routes can go here (e.g., GET, UPDATE, DELETE)
+    // Respond with a 201 status and the created flashcard object
+    res.status(201).json(flashcard);
+  } catch (error) {
+    console.error("Error creating flashcard:", error);
+
+    // Enhanced error handling: Check if error is validation-related or server-related
+    if (error instanceof ValidationError) {
+      res.status(400).json({ message: "Validation error", details: error.data });
+    } else {
+      res.status(500).json({ message: "Server error. Please try again later." });
+    }
+  }
+});
 
 module.exports = flashcardRouter;
