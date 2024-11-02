@@ -61,7 +61,7 @@ const Decks = (props) => {
             <button
               className="btn btn-secondary"
               onClick={() => handleAddFlashcard(deck.id)}
-              style={{ backgroundColor: "#6c757d", borderColor: "#6c757d" }}
+              style={{ backgroundColor: "#433878", borderColor: "#433878" }}
             >
               Add Flashcard
             </button>
