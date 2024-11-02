@@ -13,7 +13,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
   const [message, setMessage] = useState("");
-
   const router = createBrowserRouter([
     {
       path: "/",

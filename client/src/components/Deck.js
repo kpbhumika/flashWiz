@@ -34,7 +34,7 @@ const Deck = (props) => {
     setShowAnswer((prevState) => !prevState); // Toggle answer visibility
   };
 
-  if (flashcards.length === 0) {
+  if (!flashcards || flashcards.length === 0) {
     return <p>No flashcards in this deck yet.</p>;
   }
 
