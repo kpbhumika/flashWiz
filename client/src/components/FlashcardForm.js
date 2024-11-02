@@ -1,18 +1,18 @@
 import React, { useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import postFlashcard from "../apiClient/postFlashcard"; // Import the postFlashcard function
 import { AuthContext } from "../auth/provider/AuthProvider";
 
-const FlashcardForm = ({ flashcard = {}, deckId, isEditing = false }) => {
+const FlashcardForm = ({ flashcard = {}, isEditing = false }) => {
   const [question, setQuestion] = useState(flashcard.question || "");
   const [answer, setAnswer] = useState(flashcard.answer || "");
   const [error, setError] = useState(""); // State for error handling
-  const { isUserFetched, currentUser } = useContext(AuthContext); // Get currentUser from context
   const navigate = useNavigate();
 
-  // Use currentUser.id for userId, if currentUser is not available, default to 0
-  const userId = currentUser ? currentUser.id : 0;
+  const { deckId: deckIdParam } = useParams();
+  const deckId = parseInt(deckIdParam, 10);
 
   // Marking the function as async
   const handleSubmit = async (e) => {
@@ -22,10 +22,8 @@ const FlashcardForm = ({ flashcard = {}, deckId, isEditing = false }) => {
       question,
       answer,
       deckId,
-      userId,
     };
 
-    console.log(flashcardData);
     try {
       await postFlashcard(flashcardData); // Call the postFlashcard function to send the data
       navigate(`/decks/${deckId}/flashcards`); // Navigate back to the flashcards list after submission
