@@ -582,21 +582,6 @@
     "tarn" "^3.0.2"
     "tildify" "2.0.0"
 
-"lodash.castarray@^4.4.0":
-  "integrity" "sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q=="
-  "resolved" "https://registry.npmjs.org/lodash.castarray/-/lodash.castarray-4.4.0.tgz"
-  "version" "4.4.0"
-
-"lodash.compact@^3.0.1":
-  "integrity" "sha512-2ozeiPi+5eBXW1CLtzjk8XQFhQOEMwwfxblqeq6EGyTxZJ1bPATqilY0e6g2SLQpP4KuMeuioBhEnWz5Pr7ICQ=="
-  "resolved" "https://registry.npmjs.org/lodash.compact/-/lodash.compact-3.0.1.tgz"
-  "version" "3.0.1"
-
-"lodash.isempty@^4.4.0":
-  "integrity" "sha512-oKMuF3xEeqDltrGMfDxAPGIVMSSRv8tbRSODbrs4KGsRRLEhrW8N8Rd4DRgB2+621hY8A8XwwrTVhXWpxFvMzg=="
-  "resolved" "https://registry.npmjs.org/lodash.isempty/-/lodash.isempty-4.4.0.tgz"
-  "version" "4.4.0"
-
 "lodash@^4.17.21":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
@@ -702,16 +687,7 @@
   "resolved" "https://registry.npmjs.org/object-inspect/-/object-inspect-1.13.2.tgz"
   "version" "1.13.2"
 
-"objection-unique@^1.2.2":
-  "integrity" "sha512-CbePk+pzzvxnqOWvjXYRBzQ03XTT0SWwBG++NcZZM1prLN3NViyyr/Ok7lNQg3F+9eGKN8Shcu4UFYA/x02Fpw=="
-  "resolved" "https://registry.npmjs.org/objection-unique/-/objection-unique-1.2.2.tgz"
-  "version" "1.2.2"
-  dependencies:
-    "lodash.castarray" "^4.4.0"
-    "lodash.compact" "^3.0.1"
-    "lodash.isempty" "^4.4.0"
-
-"objection@^3.1.5", "objection@>=1.0.0":
+"objection@^3.1.5":
   "integrity" "sha512-Hx/ipAwXSuRBbOMWFKtRsAN0yITafqXtWB4OT4Z9wED7ty1h7bOnBdhLtcNus23GwLJqcMsRWdodL2p5GwlnfQ=="
   "resolved" "https://registry.npmjs.org/objection/-/objection-3.1.5.tgz"
   "version" "3.1.5"

@@ -1,6 +1,11 @@
 const Model = require("./Model.js");
+const uniqueFactory = require("objection-unique");
 
-class User extends Model {
+const unique = uniqueFactory({
+  fields: ["email"],
+});
+
+class User extends unique(Model) {
   static get tableName() {
     return "users";
   }
@@ -8,10 +13,11 @@ class User extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["name"],
+      required: ["username", "email"],
       properties: {
         id: { type: "integer" },
-        name: { type: "string", minLength: 1 },
+        username: { type: "string", minLength: 2 },
+        email: { type: "string", format: "email" },
       },
     };
   }

@@ -7,8 +7,7 @@ import Authenticate from "./auth/Authentication";
 import { AuthProvider } from "./auth/provider/AuthProvider";
 import Decks from "./components/Decks";
 import Deck from "./components/Deck";
-import DeckForm from "./components/DeckForm";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
@@ -43,14 +42,6 @@ function App() {
       element: (
         <Authenticate>
           <Deck />
-        </Authenticate>
-      ),
-    },
-    {
-      path: "/deck/add",
-      element: (
-        <Authenticate>
-          <DeckForm />
         </Authenticate>
       ),
     },
