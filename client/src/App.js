@@ -8,6 +8,7 @@ import { AuthProvider } from "./auth/provider/AuthProvider";
 import Decks from "./components/Decks";
 import Deck from "./components/Deck";
 import DeckForm from "./components/DeckForm";
+import FlashcardForm from "./components/FlashcardForm";
 import React, { useEffect, useState, useContext } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -52,6 +53,14 @@ function App() {
       element: (
         <Authenticate>
           <DeckForm />
+        </Authenticate>
+      ),
+    },
+    {
+      path: "/decks/:deckId/add-flashcard",
+      element: (
+        <Authenticate>
+          <FlashcardForm />
         </Authenticate>
       ),
     },
