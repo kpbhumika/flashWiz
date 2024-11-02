@@ -7,12 +7,11 @@
  */
 exports.up = async (knex) => {
     return knex.schema.createTable("decks", (table) => {
-      table.increments("id").primary(); // Auto-incrementing primary key
+      table.bigIncrements("id").primary(); // Auto-incrementing primary key
       table.string("title").notNullable();
       table.string("description"); // Optional description
       table.integer("userId").unsigned().notNullable().references("id").inTable("users").onDelete("CASCADE"); // Foreign key referencing users table
       table.boolean("isPublic").notNullable().defaultTo(false); // Public visibility, default to false
-      table.unique(["title", "userId"]); // Unique constraint on title and userId
 
       table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());
       table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now());
