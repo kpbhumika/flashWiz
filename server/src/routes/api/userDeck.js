@@ -51,5 +51,32 @@ userDeckRouter.post("/", async (req, res) => {
   }
 });
 
+// Delete a deck
+userDeckRouter.delete("/:deckId", async (req, res) => {
+  const userId = req.user.id; // Assuming user authentication middleware provides `req.user`
+  const { deckId } = req.params;
+
+  try {
+    // Check if the deck exists and belongs to the user
+    const deck = await Deck.query()
+      .findById(deckId)
+      .where("userId", userId);
+
+    if (!deck) {
+      return res.status(404).json({ message: "Deck not found or not accessible." });
+    }
+
+    // Delete the deck
+    await Deck.query().deleteById(deckId);
+
+    // Respond with a success message
+    return res.status(200).json({ message: "Deck deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting deck:", error);
+    return res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+
+
 
 module.exports = userDeckRouter;
