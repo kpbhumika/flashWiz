@@ -49,4 +49,25 @@ flashcardRouter.post("/", async (req, res) => {
   }
 });
 
+// Delete a specific flashcard by ID
+flashcardRouter.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Attempt to delete the flashcard by its ID
+    const deletedRows = await Flashcard.query().deleteById(id);
+
+    if (deletedRows === 0) {
+      // No flashcard was found with the given ID
+      return res.status(404).json({ message: "Flashcard not found" });
+    }
+
+    res.status(200).json({ message: "Flashcard deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting flashcard:", error);
+    res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+
+
 module.exports = flashcardRouter;

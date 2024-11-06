@@ -6,7 +6,14 @@ const getFlashcards = async (deckId) => {
       throw error;
     }
     const responseData = await response.json();
-    return responseData.flashcards;
+
+    // Convert flashcard IDs to integers before returning
+    const flashcardsWithIntegerIds = responseData.flashcards.map((flashcard) => ({
+      ...flashcard,
+      id: parseInt(flashcard.id, 10), // Convert id to an integer
+    }));
+
+    return flashcardsWithIntegerIds;
   } catch (error) {
     console.error("Error in fetch!");
     console.error(error.message);
