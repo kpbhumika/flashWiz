@@ -19,18 +19,18 @@ const Deck = (props) => {
   const goToNext = () => {
     if (currentIndex < flashcards.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      setShowAnswer(false);
+      setShowAnswer(false); // Reset show answer on navigation
     }
   };
 
   const goToPrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
-      setShowAnswer(false);
+      setShowAnswer(false); // Reset show answer on navigation
     }
   };
 
-  const showAnswerHandler = () => {
+  const toggleShowAnswer = () => {
     setShowAnswer((prevState) => !prevState); // Toggle answer visibility
   };
 
@@ -45,7 +45,10 @@ const Deck = (props) => {
       <h2>Flashcards for Deck {deckId}</h2>
 
       {/* Flashcard container */}
-      <div className={`card flashcard ${showAnswer ? "flipped" : ""}`}>
+      <div
+        className={`card flashcard ${showAnswer ? "flipped" : ""}`}
+        onClick={toggleShowAnswer} // Toggle on card click
+      >
         <div className="card-front">
           <p>
             <strong>Question:</strong> {currentFlashcard.question}
@@ -66,9 +69,6 @@ const Deck = (props) => {
           disabled={currentIndex === 0}
         >
           Previous
-        </button>
-        <button className="btn btn-custom-primary" onClick={showAnswerHandler}>
-          {showAnswer ? "Hide Answer" : "Show Answer"}
         </button>
         <button
           className="btn btn-custom-secondary ms-2"
