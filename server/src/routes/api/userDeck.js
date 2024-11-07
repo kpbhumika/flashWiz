@@ -21,12 +21,14 @@ userDeckRouter.get("/", async (req, res) => {
 // Create a new deck
 userDeckRouter.post("/", async (req, res) => {
   console.log(req.body);
-  const { title, userId, description = "", isPublic = false } = req.body; // Add optional fields with default values
+  const { title, userId, description = "", categoryId, isPublic = false } = req.body; // Add optional fields with default values
 
   // Basic validation to check if required fields are provided
   if (!title || !userId) {
     return res.status(400).json({ message: "Title and userId are required." });
   }
+
+  const categoryIdInt = parseInt(categoryId, 10)
 
   try {
     // Use Knex and Objection to insert and fetch the newly created deck
@@ -34,6 +36,7 @@ userDeckRouter.post("/", async (req, res) => {
       title,
       userId,
       description,
+      categoryId: categoryIdInt,
       isPublic,
     });
 

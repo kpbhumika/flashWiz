@@ -1,19 +1,31 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import postDeck from "../apiClient/postDeck"; // Import the postDeck function
+import getCategories from "../apiClient/getCategories"; // Import the getCategories function
 import { AuthContext } from "../auth/provider/AuthProvider";
 
 const DeckForm = ({ deck = {}, isEditing = false }) => {
   const [title, setTitle] = useState(deck.title || "");
   const [description, setDescription] = useState(deck.description || "");
   const [isPublic, setIsPublic] = useState(deck.isPublic || false);
+  const [categoryId, setCategoryId] = useState(deck.categoryId || ""); // New state for category
+  const [categories, setCategories] = useState([]); // New state for categories
   const [error, setError] = useState(""); // State for error handling
   const { isUserFetched, currentUser } = useContext(AuthContext); // Get currentUser from context
   const navigate = useNavigate();
 
   // Use currentUser.id for userId, if currentUser is not available, default to 0
   const userId = currentUser ? currentUser.id : 0;
+
+  // Fetch categories when the component mounts
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const fetchedCategories = await getCategories();
+      setCategories(fetchedCategories);
+    };
+    fetchCategories();
+  }, []);
 
   // Marking the function as async
   const handleSubmit = async (e) => {
@@ -24,6 +36,7 @@ const DeckForm = ({ deck = {}, isEditing = false }) => {
       description,
       userId,
       isPublic,
+      categoryId,
     };
 
     console.log(deckData);
@@ -40,6 +53,26 @@ const DeckForm = ({ deck = {}, isEditing = false }) => {
       <h2>{isEditing ? "Edit Deck" : "Create Deck"}</h2>
       {error && <div className="alert alert-danger">{error}</div>} {/* Display error if exists */}
       <form onSubmit={handleSubmit} className="mt-4">
+
+        {/* Category Dropdown */}
+        <div className="mb-3">
+          <label htmlFor="category" className="form-label">Category</label>
+          <select
+            className="form-select"
+            id="category"
+            value={categoryId}
+            onChange={(e) => setCategoryId(e.target.value)}
+            required
+          >
+            <option value="">Select a category</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="mb-3">
           <label htmlFor="title" className="form-label">Deck Title</label>
           <input
@@ -51,6 +84,7 @@ const DeckForm = ({ deck = {}, isEditing = false }) => {
             required
           />
         </div>
+
         <div className="mb-3">
           <label htmlFor="description" className="form-label">Description</label>
           <textarea
@@ -61,6 +95,7 @@ const DeckForm = ({ deck = {}, isEditing = false }) => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
+
         <div className="mb-3 form-check">
           <input
             type="checkbox"
