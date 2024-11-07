@@ -7,7 +7,7 @@
  */
 exports.up = async (knex) => {
     return knex.schema.createTable("decks", (table) => {
-      table.bigIncrements("id").primary(); // Auto-incrementing primary key
+      table.increments("id").primary(); // Auto-incrementing primary key
       table.string("title").notNullable();
       table.integer("categoryId").unsigned().notNullable().references("id").inTable("categories").onDelete("CASCADE");
       table.string("description"); // Optional description

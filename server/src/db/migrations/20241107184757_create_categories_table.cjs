@@ -7,7 +7,7 @@
  */
 exports.up = async (knex) => {
     return knex.schema.createTable("categories", (table) => {
-      table.bigIncrements("id").primary(); // Auto-incrementing primary key
+      table.increments("id").primary(); // Auto-incrementing primary key
       table.string("name").notNullable(); // Required name field
 
       table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now());

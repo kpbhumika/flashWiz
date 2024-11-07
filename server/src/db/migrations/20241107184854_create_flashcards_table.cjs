@@ -7,7 +7,7 @@
  */
 exports.up = async (knex) => {
     return knex.schema.createTable("flashcards", (table) => {
-      table.bigIncrements("id").primary(); // Auto-incrementing primary key
+      table.increments("id").primary(); // Auto-incrementing primary key
       table.string("question").notNullable(); // Question cannot be null
       table.string("answer").notNullable(); // Answer cannot be null
       table.integer("deckId").unsigned().notNullable() // Foreign key reference to decks table
