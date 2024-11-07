@@ -9,6 +9,7 @@ exports.up = async (knex) => {
     return knex.schema.createTable("decks", (table) => {
       table.bigIncrements("id").primary(); // Auto-incrementing primary key
       table.string("title").notNullable();
+      table.integer("categoryId").unsigned().notNullable().references("id").inTable("categories").onDelete("CASCADE");
       table.string("description"); // Optional description
       table.integer("userId").unsigned().notNullable().references("id").inTable("users").onDelete("CASCADE"); // Foreign key referencing users table
       table.boolean("isPublic").notNullable().defaultTo(false); // Public visibility, default to false
