@@ -1,6 +1,8 @@
 // routes/flashcards.js
 const express = require("express");
 const Flashcard = require("../../models/Flashcard");
+const { ValidationError } = require("objection");
+
 
 const flashcardRouter = express.Router();
 
