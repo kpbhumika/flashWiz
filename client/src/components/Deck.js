@@ -9,15 +9,18 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const Deck = (props) => {
   const [flashcards, setFlashcards] = useState([]);
+  const [deckTitle, setDeckTitle] = useState("");
   const { deckId } = useParams();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
 
   useEffect(() => {
-    getFlashcards(deckId).then((flashcards) => {
-      setFlashcards(flashcards);
+    getFlashcards(deckId).then(({ deckTitle, flashcards }) => {
+      setDeckTitle(deckTitle);     // Set the deck title in state
+      setFlashcards(flashcards);    // Set the flashcards in state
     });
   }, [deckId]);
+
 
   const goToNext = () => {
     if (currentIndex < flashcards.length - 1) {
@@ -69,7 +72,7 @@ const Deck = (props) => {
 
   return (
     <div className="text-center">
-      <h2>Flashcards for Deck {deckId}</h2>
+      <h2>Flashcards for {deckTitle}</h2>
 
       <div
         className={`card flashcard ${showAnswer ? "flipped" : ""}`}

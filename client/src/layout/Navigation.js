@@ -34,10 +34,10 @@ const Navigation = () => {
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/deck/add">
-                  Add Deck
+                  Create Deck
                 </a>
               </li>
-              <li className="nav-item dropdown">
+              {/* <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
                   href="/"
@@ -73,7 +73,7 @@ const Navigation = () => {
                 <a className="nav-link disabled" href="/">
                   Disabled
                 </a>
-              </li>
+              </li> */}
             </ul>
             <LoginSection />
           </div>

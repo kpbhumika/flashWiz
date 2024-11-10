@@ -1,6 +1,8 @@
 // routes/flashcards.js
 const express = require("express");
 const Flashcard = require("../../models/Flashcard");
+const Deck = require("../../models/Deck");
+const { ValidationError } = require("objection");
 
 const flashcardRouter = express.Router();
 
@@ -8,8 +10,10 @@ const flashcardRouter = express.Router();
 flashcardRouter.get("/", async (req, res) => {
   const deckId = req.query.deckId;
   try {
+    const deck = await Deck.query().findById(deckId).select("title");
+
     const flashcards = await Flashcard.query().where("deckId", deckId);
-    return res.status(200).json({ flashcards });
+    return res.status(200).json({ deckTitle: deck.title, flashcards });
   } catch (error) {
     console.error("Error fetching decks:", error);
     return res
