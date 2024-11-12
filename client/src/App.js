@@ -8,6 +8,7 @@ import { AuthProvider } from "./auth/provider/AuthProvider";
 import Decks from "./components/Decks";
 import Deck from "./components/Deck";
 import DeckForm from "./components/DeckForm";
+import CategorySearch from "./components/CategorySearch";
 import FlashcardForm from "./components/FlashcardForm";
 import React, { useEffect, useState, useContext } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -23,6 +24,10 @@ function App() {
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/category",
+      element: <CategorySearch />,
     },
     {
       path: "/profile",

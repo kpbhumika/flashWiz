@@ -1,5 +1,6 @@
 
 import { LoginSection } from "./LoginSection";
+import CategorySearch from "../components/CategorySearch";
 
 const Navigation = () => {
   return (
@@ -36,6 +37,10 @@ const Navigation = () => {
                 <a className="nav-link" href="/deck/add">
                   Create Deck
                 </a>
+              </li>
+              {/* Place CategorySearch next to "Create Deck" */}
+              <li className="nav-item d-flex align-items-center">
+                <CategorySearch />
               </li>
               {/* <li className="nav-item dropdown">
                 <a
@@ -75,6 +80,7 @@ const Navigation = () => {
                 </a>
               </li> */}
             </ul>
+
             <LoginSection />
           </div>
         </div>
