@@ -5,9 +5,10 @@ const deckRouter = express.Router();
 
 // fetch public decks by categoryId
 deckRouter.get("/:categoryId", async (req, res) => {
-  const userId = req.user.id;
+  const categoryId = req.query.categoryId;
+
   try {
-    const decks = await Deck.query().where("isPublic", true).andWhere("categoryId", req.params.categoryId);
+    const decks = await Deck.query().where("isPublic", true).andWhere("categoryId", categoryId);
     return res.status(200).json({ decks });
   } catch (error) {
     console.error("Error fetching decks: ", error);
