@@ -38,7 +38,7 @@ const navigate = useNavigate();
 
   const handleSearch = () => {
     if (categoryId) {
-      navigate(`/decks/public?categoryId=${categoryId}`);
+      navigate(`/${categoryId}/decks/public`);
     } else {
       console.log("No category selected");
     }

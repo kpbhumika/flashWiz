@@ -29,7 +29,7 @@ function App() {
       element: <CategorySearch />,
     },
     {
-      path: "/decks/public",
+      path: "/:categoryId/decks/public",
       element: <PublicDecks />,
     },
 
