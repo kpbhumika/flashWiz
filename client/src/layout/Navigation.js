@@ -1,6 +1,7 @@
 
 import { LoginSection } from "./LoginSection";
 import CategorySearch from "../components/CategorySearch";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const Navigation = () => {
   return (
@@ -39,9 +40,11 @@ const Navigation = () => {
                 </a>
               </li>
               {/* Place CategorySearch next to "Create Deck" */}
-              <li className="nav-item d-flex align-items-center">
-                <CategorySearch />
-              </li>
+              <Router>
+                <li className="nav-item d-flex align-items-center">
+                  <CategorySearch />
+                </li>
+              </Router>
               {/* <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"

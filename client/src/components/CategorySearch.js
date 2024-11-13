@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import getCategories from "../apiClient/getCategories";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,7 @@ const CategorySearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryId, setCategoryId] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
-// const navigate = useNavigate();
+const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -38,8 +38,7 @@ const CategorySearch = () => {
 
   const handleSearch = () => {
     if (categoryId) {
-      console.log("category selected");
-      // navigate(`/decks/public?categoryId=${categoryId}`);
+      navigate(`/decks/public?categoryId=${categoryId}`);
     } else {
       console.log("No category selected");
     }

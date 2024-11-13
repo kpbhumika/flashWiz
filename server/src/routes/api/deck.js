@@ -4,7 +4,7 @@ const Deck = require("../../models/Deck");
 const deckRouter = express.Router();
 
 // fetch public decks by categoryId
-deckRouter.get("/:categoryId", async (req, res) => {
+deckRouter.get("/", async (req, res) => {
   const categoryId = req.query.categoryId;
 
   try {
