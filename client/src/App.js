@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Login from "./auth/Login";
 import Layout from "./layout/Layout";
@@ -8,12 +7,13 @@ import { AuthProvider } from "./auth/provider/AuthProvider";
 import Decks from "./components/Decks";
 import Deck from "./components/Deck";
 import DeckForm from "./components/DeckForm";
+import Study from "./components/Study";
 import FlashcardForm from "./components/FlashcardForm";
-import React, { useEffect, useState, useContext } from "react";
+import PublicFlashcards from "./components/PublicFlashcards";
+import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
-  const [message, setMessage] = useState("");
 
   const router = createBrowserRouter([
     {
@@ -24,6 +24,15 @@ function App() {
       path: "/login",
       element: <Login />,
     },
+    {
+      path: "/decks/public/category",
+      element: <Study />,
+    },
+    {
+      path: "/decks/public/:deckId/flashcards",
+      element: <PublicFlashcards />
+    },
+
     {
       path: "/profile",
       element: (
@@ -65,14 +74,6 @@ function App() {
       ),
     },
   ]);
-
-  useEffect(() => {
-    // Fetch the "Hello World!" message from the backend
-    fetch("http://localhost:9000/") // Adjust the URL if necessary
-      .then((response) => response.text()) // Get the response as text
-      .then((data) => setMessage(data)) // Update the state with the fetched message
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
 
   return (
     <AuthProvider>

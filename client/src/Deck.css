@@ -74,3 +74,35 @@
   color: #433878;
   cursor: pointer;
 }
+
+/* Styling for search icon */
+/* Style for the search input */
+.search-bar {
+  border-color: #433878; /* Set the border color to #433878 */
+}
+
+.search-bar:focus {
+  border-color: #433878; /* Ensure the border color is maintained on focus */
+  box-shadow: 0 0 0 0.2rem rgba(67, 56, 120, 0.25); /* Optional: Add shadow effect on focus */
+}
+
+/* Style for the search icon container */
+.input-group-prepend .input-group-text {
+  font-size: 1.2rem; /* Adjust the icon size to match the input's height */
+  height: 100%; /* Ensure the button has the same height as the input */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: #433878; /* Set the same border color for the icon */
+}
+
+/* Style for the search icon */
+.search-icon {
+  font-size: 1.2rem; /* Adjust the icon size to fit within the input */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #433878;
+  color: white;
+}

@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import postFlashcard from "../apiClient/postFlashcard"; // Import the postFlashcard function
-import { AuthContext } from "../auth/provider/AuthProvider";
 
 const FlashcardForm = ({ flashcard = {}, isEditing = false }) => {
   const [question, setQuestion] = useState(flashcard.question || "");

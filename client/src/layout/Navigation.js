@@ -1,5 +1,7 @@
 
 import { LoginSection } from "./LoginSection";
+import CategorySearch from "../components/CategorySearch";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const Navigation = () => {
   return (
@@ -35,6 +37,11 @@ const Navigation = () => {
               <li className="nav-item">
                 <a className="nav-link" href="/deck/add">
                   Create Deck
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/decks/public/category">
+                  Study
                 </a>
               </li>
               {/* <li className="nav-item dropdown">
@@ -75,6 +82,7 @@ const Navigation = () => {
                 </a>
               </li> */}
             </ul>
+
             <LoginSection />
           </div>
         </div>
