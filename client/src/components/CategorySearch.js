@@ -33,10 +33,15 @@ const CategorySearch = ({ onSearchChange, onCategorySelect, searchTerm }) => {
 
   return (
     <div className="position-relative" onBlur={() => setTimeout(() => setShowDropdown(false), 200)}>
-      <div className="d-flex">
+      <div className="input-group">
+        <div className="input-group-prepend">
+          <span className="input-group-text search-icon">
+            <FontAwesomeIcon icon={faSearch} />
+          </span>
+        </div>
         <input
           type="search"
-          className="form-control"
+          className="form-control search-bar"
           placeholder="Category filter"
           value={searchTerm}
           onChange={handleSearchChange}

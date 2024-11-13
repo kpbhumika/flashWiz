@@ -21,7 +21,10 @@ const StudyPage = () => {
         onCategorySelect={handleCategorySelect}
         searchTerm={searchTerm}
       />
-      <PublicDecks categoryId={selectedCategoryId} searchTerm={searchTerm} />
+
+      <div className="mt-4">
+        <PublicDecks categoryId={selectedCategoryId} searchTerm={searchTerm} />
+      </div>
     </div>
   );
 };

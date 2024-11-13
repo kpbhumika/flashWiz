@@ -54,11 +54,19 @@ const PublicDecks = ({ categoryId, searchTerm }) => {
                   <div className="col-md-4 mb-4" key={deck.id}>
                     <div
                       className="card h-100 d-flex flex-column clickable-card"
+                      style={{
+                        backgroundColor: "#ffe1ff",
+                        color: "#433878",
+                        borderColor: "#433878",
+                        cursor: "pointer",
+                      }}
                       onClick={() => handleDeckClick(deck.id)}
                     >
                       <div className="card-body flex-grow-1">
                         <h5 className="card-title">{deck.title}</h5>
-                        <p className="card-text">{deck.description || "No description available"}</p>
+                        <p className="card-text">
+                          {deck.description || "No description available"}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -70,6 +78,11 @@ const PublicDecks = ({ categoryId, searchTerm }) => {
                     key={i + 1}
                     onClick={() => paginate(i + 1)}
                     className={`btn mx-1 ${currentPage === i + 1 ? "active" : ""}`}
+                    style={{
+                      backgroundColor: "#433878",
+                      color: "white",
+                      borderColor: "#433878",
+                    }}
                   >
                     {i + 1}
                   </button>
