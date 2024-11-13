@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
 import getCategories from "../apiClient/getCategories";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-const CategorySearch = () => {
+const CategorySearch = ({ onSearchChange, onCategorySelect, searchTerm }) => {
   const [categories, setCategories] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [categoryId, setCategoryId] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
-const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -26,26 +21,14 @@ const navigate = useNavigate();
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
-    setSearchTerm(value);
+    onSearchChange(value);
     setShowDropdown(true);
   };
 
   const handleCategoryClick = (categoryName, id) => {
-    setSearchTerm(categoryName);
-    setCategoryId(id);
+    onSearchChange(categoryName);
+    onCategorySelect(id);
     setShowDropdown(false);
-  };
-
-  const handleSearch = () => {
-    if (categoryId) {
-      navigate(`/${categoryId}/decks/public`);
-    } else {
-      console.log("No category selected");
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") handleSearch();
   };
 
   return (
@@ -54,22 +37,13 @@ const navigate = useNavigate();
         <input
           type="search"
           className="form-control"
-          placeholder="Search or Select Category"
+          placeholder="Category filter"
           value={searchTerm}
           onChange={handleSearchChange}
-          onKeyDown={handleKeyDown}
           onFocus={() => setShowDropdown(true)}
           aria-label="Search Categories"
         />
-        <button
-          className="btn ml-2"
-          style={{ backgroundColor: "#433878", color: "white" }}
-          onClick={handleSearch}
-        >
-          <FontAwesomeIcon icon={faSearch} />
-        </button>
       </div>
-
       {showDropdown && (
         <ul className="dropdown-menu show position-absolute" style={{ top: "100%", left: 0, zIndex: 1000, maxHeight: "200px", overflowY: "auto" }}>
           {filteredCategories.length > 0 ? (

@@ -7,9 +7,9 @@ import { AuthProvider } from "./auth/provider/AuthProvider";
 import Decks from "./components/Decks";
 import Deck from "./components/Deck";
 import DeckForm from "./components/DeckForm";
-import CategorySearch from "./components/CategorySearch";
+import Study from "./components/Study";
 import FlashcardForm from "./components/FlashcardForm";
-import PublicDecks from "./components/PublicDecks";
+import PublicFlashcards from "./components/PublicFlashcards";
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -25,12 +25,12 @@ function App() {
       element: <Login />,
     },
     {
-      path: "/category",
-      element: <CategorySearch />,
+      path: "/decks/public/category",
+      element: <Study />,
     },
     {
-      path: "/:categoryId/decks/public",
-      element: <PublicDecks />,
+      path: "/decks/public/:deckId/flashcards",
+      element: <PublicFlashcards />
     },
 
     {
