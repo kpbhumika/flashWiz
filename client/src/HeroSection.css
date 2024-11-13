@@ -81,3 +81,9 @@
   height: auto;
   border-radius: 10px;
 }
+
+
+/* navbar */
+.navbar-nav .nav-link  {
+  color: white !important; /* Make sure this overrides other styles */
+}
