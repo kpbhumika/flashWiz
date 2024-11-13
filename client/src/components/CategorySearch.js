@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
+
 import getCategories from "../apiClient/getCategories";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const CategorySearch = () => {
   const [categories, setCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryId, setCategoryId] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
-
-  // const navigate = useNavigate();
+// const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -36,7 +38,7 @@ const CategorySearch = () => {
 
   const handleSearch = () => {
     if (categoryId) {
-      console.log("category selected")
+      console.log("category selected");
       // navigate(`/decks/public?categoryId=${categoryId}`);
     } else {
       console.log("No category selected");
@@ -60,8 +62,12 @@ const CategorySearch = () => {
           onFocus={() => setShowDropdown(true)}
           aria-label="Search Categories"
         />
-        <button className="btn btn-primary ml-2" onClick={handleSearch}>
-          <i className="fas fa-search"></i>
+        <button
+          className="btn ml-2"
+          style={{ backgroundColor: "#433878", color: "white" }}
+          onClick={handleSearch}
+        >
+          <FontAwesomeIcon icon={faSearch} />
         </button>
       </div>
 
