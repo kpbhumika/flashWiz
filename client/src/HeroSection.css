@@ -3,8 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #e3f2fd, #ffe1ff);
-  /* Light background gradient */
+  background: linear-gradient(to right, #e3f2fd, #ffe1ff); /* Light background gradient */
   padding: 50px 20px;
   height: 100vh;
   color: #333;
@@ -16,12 +15,13 @@
   align-items: center;
   max-width: 1200px;
   width: 100%;
+  flex-wrap: wrap; /* Allows content to wrap in case of overflow */
 }
 
 .hero-text {
   flex: 1;
   padding: 20px;
-  margin-top: -50px;
+  /* Removed margin-top: -50px; */
 }
 
 .hero-heading {
@@ -42,7 +42,7 @@
   margin-bottom: 40px;
 }
 
-.cta-buttons {
+/* .cta-buttons {
   display: flex;
   gap: 10px;
 }
@@ -68,7 +68,7 @@
 
 .cta-button.secondary:hover {
   background-color: #1e88e5;
-}
+} */
 
 .hero-image {
   flex: 1;
