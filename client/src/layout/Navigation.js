@@ -39,12 +39,11 @@ const Navigation = () => {
                   Create Deck
                 </a>
               </li>
-              {/* Place CategorySearch next to "Create Deck" */}
-              <Router>
-                <li className="nav-item d-flex align-items-center">
-                  <CategorySearch />
-                </li>
-              </Router>
+              <li className="nav-item">
+                <a className="nav-link" href="/category">
+                  Study
+                </a>
+              </li>
               {/* <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
