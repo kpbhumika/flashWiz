@@ -1,5 +1,6 @@
 {
     "scripts": {
-        "format": "npm run format --prefix ./server && npm run format --prefix ./client"
+        "format": "npm run format --prefix ./server && npm run format --prefix ./client",
+        "start": "cd server && npm start"
     }
 }
