@@ -10,15 +10,15 @@ import DeckForm from "./components/DeckForm";
 import Study from "./components/Study";
 import FlashcardForm from "./components/FlashcardForm";
 import PublicFlashcards from "./components/PublicFlashcards";
+import HomePage from "./components/HomePage";
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
-
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <>Welcome to FlashWiz!!</>,
+      element: <HomePage/>,
     },
     {
       path: "/login",
@@ -74,7 +74,6 @@ function App() {
       ),
     },
   ]);
-
   return (
     <AuthProvider>
       <Layout>

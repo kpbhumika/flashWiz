@@ -138,7 +138,7 @@ passport.deserializeUser(function (user, cb) {
   });
 });
 
-var router = express.Router();
+var authRouter = express.Router();
 
 /* GET /login
  *
@@ -148,16 +148,18 @@ var router = express.Router();
  * user to sign in with Google.  When the user clicks this button, a request
  * will be sent to the `GET /login/federated/accounts.google.com` route.
  */
-router.get("/login", function (req, res, next) {
-  res.redirect(`${CLIENT_URL}/login`);
-});
 
-router.get("/success", function (req, res, next) {
+
+// authRouter.get("/login", function (req, res, next) {
+//   res.redirect(`${CLIENT_URL}/login`);
+// });
+
+authRouter.get("/success", function (req, res, next) {
   res.redirect(`${CLIENT_URL}/`);
 });
 
 // Route to get current authenticated user
-router.get("/current-user", (req, res) => {
+authRouter.get("/current-user", (req, res) => {
   res.send(req.user ? req.user : null);
 });
 
@@ -173,7 +175,7 @@ router.get("/current-user", (req, res) => {
  * Once Google has completed their interaction with the user, the user will be
  * redirected back to the app at `GET /oauth2/redirect/accounts.google.com`.
  */
-router.get("/login/federated/google", passport.authenticate("google"));
+authRouter.get("/login/federated/google", passport.authenticate("google"));
 
 /*
     This route completes the authentication sequence when Google redirects the
@@ -181,7 +183,7 @@ router.get("/login/federated/google", passport.authenticate("google"));
     automatically created and their Google account is linked.  When an existing
     user returns, they are signed in to their linked account.
 */
-router.get(
+authRouter.get(
   "/oauth2/redirect/google",
   passport.authenticate("google", {
     successReturnToOrRedirect: "/success",
@@ -193,7 +195,7 @@ router.get(
  *
  * This route logs the user out.
  */
-router.post("/logoutuser", function (req, res) {
+authRouter.post("/logoutuser", function (req, res) {
   req.logout((err) => {
     if (err) {
       return res.status(500).send("Logout failed");
@@ -201,4 +203,4 @@ router.post("/logoutuser", function (req, res) {
     res.send({ success: true });
   });
 });
-module.exports = router;
+module.exports = authRouter;
