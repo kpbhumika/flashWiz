@@ -6,7 +6,7 @@ import { AuthContext } from "./provider/AuthProvider";
 const Login = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const redirectToGoogleFederatedLogin = () => {
-    window.location.href = "http://localhost:9000/login/federated/google";
+    window.location.href = "/login/federated/google";
   };
   const fetchCurrentUser = async () => {
     try {
@@ -39,9 +39,6 @@ const Login = () => {
   return (
     <>
       logging in.....
-      {/* <button onClick={handleLogin}>
-                login with google
-            </button> */}
     </>
   );
 };

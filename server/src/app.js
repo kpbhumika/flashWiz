@@ -11,6 +11,7 @@ const rootRouter = require("./routes/rootRouter.js");
 const dataRouter = require("./routes/data");
 const indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth");
+const frontendRouter = require("./routes/frontendRouter");
 
 const PORT = process.env.PORT || 9000;
 const app = express();
@@ -50,7 +51,8 @@ app.use(express.json()); // Enable JSON body parsing
 app.use("/", indexRouter);
 app.use("/", authRouter); // Prefix all routes from data.js with /api
 app.use("/api", dataRouter); // Prefix all routes from data.js with /api
-app.use(rootRouter);
+app.use("/", rootRouter);
+app.use("/", frontendRouter);
 
 // Start the server
 app.listen(PORT, () => {
