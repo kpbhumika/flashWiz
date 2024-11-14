@@ -81,5 +81,33 @@ userDeckRouter.delete("/:deckId", async (req, res) => {
 });
 
 
+/// Update deck visibility
+userDeckRouter.patch("/:deckId/visibility", async (req, res) => {
+  const userId = req.user.id; // Assuming user authentication middleware provides `req.user`
+  const { deckId } = req.params;
+  const { isPublic } = req.body;
+
+  if (typeof isPublic !== "boolean") {
+    return res.status(400).json({ message: "isPublic must be a boolean value." });
+  }
+
+  // Check if the deck exists and belongs to the user
+  const deck = await Deck.query()
+    .findById(deckId)
+    .where("userId", userId);
+
+  if (!deck) {
+    return res.status(404).json({ message: "Deck not found or not accessible." });
+  }
+
+  // Update only the `isPublic` field of the deck
+  const updatedDeck = await Deck.query().patchAndFetchById(deckId, { isPublic });
+
+  // Respond with the updated deck object
+  return res.status(200).json({deck: updatedDeck});
+
+});
+
+
 
 module.exports = userDeckRouter;

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Dropdown, ButtonGroup } from "react-bootstrap"; // Import React Bootstrap components
+import { Dropdown, ButtonGroup } from "react-bootstrap";
 import getUserDecks from "../apiClient/getUserDecks";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import deleteDeck from "../apiClient/deleteDeck";
+import updateDeckVisibility from "../apiClient/updateDeckVisibility";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Decks = () => {
   const [userDecks, setUserDecks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [decksPerPage] = useState(9); // Display 9 decks per page in a grid
+  const [decksPerPage] = useState(9);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,9 +33,7 @@ const Decks = () => {
   const handleDeleteDeck = async (deckId) => {
     if (window.confirm("Are you sure you want to delete this deck?")) {
       try {
-        await deleteDeck(deckId); // Call the deleteDeck API function
-
-        // Remove the deck from the UI if deletion is successful
+        await deleteDeck(deckId);
         setUserDecks(userDecks.filter((deck) => deck.id !== deckId));
       } catch (error) {
         console.error("Error deleting deck:", error);
@@ -43,12 +42,25 @@ const Decks = () => {
     }
   };
 
-  // Calculate the decks to display on the current page
+  const handleToggleVisibility = async (deckId, isPublic) => {
+    if (window.confirm("Are you sure you want to change the visibility of this deck?"))
+    try {
+      const updatedDeck = await updateDeckVisibility(deckId, !isPublic);
+
+      getUserDecks().then((decks) => {
+        setUserDecks(decks);
+      });
+
+    } catch (error) {
+      console.error("Error toggling visibility:", error);
+      alert("Failed to update deck visibility. Please try again.");
+    }
+  };
+
   const indexOfLastDeck = currentPage * decksPerPage;
   const indexOfFirstDeck = indexOfLastDeck - decksPerPage;
   const currentDecks = userDecks.slice(indexOfFirstDeck, indexOfLastDeck);
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const decks =
@@ -58,6 +70,7 @@ const Decks = () => {
         <div
           className="card h-100 d-flex flex-column clickable-card"
           style={{
+            position: "relative",
             backgroundColor: "#ffe1ff",
             color: "#433878",
             borderColor: "#433878",
@@ -65,26 +78,8 @@ const Decks = () => {
           }}
           onClick={() => handleDeckClick(deck.id)}
         >
-          <div className="card-body flex-grow-1">
-            <h5 className="card-title">{deck.title}</h5>
-            <p className="card-text">
-              {deck.description || "No description available"}
-            </p>
-          </div>
-
-          <div className="card-footer d-flex justify-content-between">
-            <button
-              className="btn btn-secondary"
-              onClick={(e) => {
-                e.stopPropagation(); // Prevents card click event
-                handleAddFlashcard(deck.id);
-              }}
-              style={{ backgroundColor: "#433878", borderColor: "#433878" }}
-            >
-              Add Flashcard
-            </button>
-
-            {/* Dropdown menu for edit and delete */}
+          {/* Dropdown positioned in top right */}
+          <div style={{ position: "absolute", top: "10px", right: "10px", zIndex: "1" }}>
             <Dropdown as={ButtonGroup} align="end" onClick={(e) => e.stopPropagation()}>
               <Dropdown.Toggle
                 variant="link"
@@ -102,8 +97,36 @@ const Decks = () => {
               <Dropdown.Menu>
                 <Dropdown.Item onClick={() => handleEditDeck(deck.id)}>Edit</Dropdown.Item>
                 <Dropdown.Item onClick={() => handleDeleteDeck(deck.id)}>Delete</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleToggleVisibility(deck.id, deck.isPublic)}>
+                  {deck.isPublic ? "Set to Private" : "Set to Public"}
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+          </div>
+
+          <div className="card-body d-flex flex-column flex-grow-1">
+            <h5 className="card-title">{deck.title}</h5>
+            <div className="flex-grow-1">
+              <p className="card-text">{deck.description || "No description available"}</p>
+            </div>
+            <div className="mt-3">
+              <span className="badge bg-secondary">
+                {deck.isPublic ? "Public" : "Private"}
+              </span>
+            </div>
+          </div>
+
+          <div className="card-footer d-flex justify-content-between">
+            <button
+              className="btn btn-secondary"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddFlashcard(deck.id);
+              }}
+              style={{ backgroundColor: "#433878", borderColor: "#433878" }}
+            >
+              Add Flashcard
+            </button>
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ const HomePage = () => {
         {/* Left Section: Text Content */}
         <div className="hero-text">
           <h1 className="hero-heading">
-            Boost Your Learning with Flashcards!
+            Boost Your Learning with FlashWiz!
           </h1>
           <p className="hero-subheading">
             Master any topic with personalized flashcards and interactive learning.
