@@ -71,7 +71,7 @@ const Deck = (props) => {
   const currentFlashcard = flashcards[currentIndex];
 
   return (
-    <div className="text-center">
+    <div className="text-center pt-4">
       <h2>Flashcards for {deckTitle}</h2>
 
       <div

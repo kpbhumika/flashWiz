@@ -110,7 +110,7 @@ const Decks = () => {
     ));
 
   return (
-    <div className="container">
+    <div className="container pt-4">
       {userDecks && userDecks.length > 0 ? (
         <div>
           <div className="row">{decks}</div>
