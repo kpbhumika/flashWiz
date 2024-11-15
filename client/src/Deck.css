@@ -1,6 +1,6 @@
 .flashcard {
-  width: 300px; /* Adjust to your desired width */
-  height: 200px; /* Adjust to your desired height */
+  width: 500px; /* Adjust to your desired width */
+  height: 300px; /* Adjust to your desired height */
   perspective: 1000px; /* Enable 3D perspective */
   margin: auto; /* Center the card */
   transition: transform 0.6s; /* Smooth transition for flipping */
@@ -19,7 +19,7 @@
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 20px;
+  padding: 30px;
   background-color: #f8f9fa; /* Light background color */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.6s; /* Smooth transition for the card's sides */

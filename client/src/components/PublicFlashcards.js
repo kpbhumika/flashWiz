@@ -43,7 +43,7 @@ const PublicFlashcards = (props) => {
   const currentFlashcard = flashcards[currentIndex];
 
   return (
-    <div className="text-center">
+    <div className="text-center pt-5">
       <h2>Flashcards for {deckTitle}</h2>
 
       <div

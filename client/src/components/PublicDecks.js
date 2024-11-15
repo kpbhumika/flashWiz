@@ -12,17 +12,21 @@ const PublicDecks = ({ categoryId, searchTerm }) => {
   useEffect(() => {
     const fetchDecks = async () => {
       setIsLoading(true);
-      const response = await getPublicDecksByCategories(categoryId);
-      setDecks(response);
+      let response;
+
+      // Fetch decks based on categoryId; if no category, fetch all decks
+      if (categoryId) {
+        response = await getPublicDecksByCategories(categoryId);
+      } else {
+        response = await getPublicDecksByCategories(); // Fetch all decks
+      }
+
+      setDecks(response || []); // Ensure response is not null
       setIsLoading(false);
     };
 
-    if (categoryId || searchTerm) {
-      fetchDecks();
-    } else {
-      setDecks([]);
-      setIsLoading(false);
-    }
+    // Fetch decks initially and whenever categoryId or searchTerm changes
+    fetchDecks();
   }, [categoryId, searchTerm]);
 
   const handleDeckClick = (deckId) => {
@@ -34,10 +38,6 @@ const PublicDecks = ({ categoryId, searchTerm }) => {
   const currentDecks = decks.slice(indexOfFirstDeck, indexOfLastDeck);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  if (!categoryId && !searchTerm && !isLoading) {
-    return null;
-  }
 
   return (
     <div className="container">
@@ -93,11 +93,9 @@ const PublicDecks = ({ categoryId, searchTerm }) => {
               </div>
             </div>
           ) : (
-            (categoryId || searchTerm) && (
-              <div className="alert alert-info text-center mt-4">
-                No decks available.
-              </div>
-            )
+            <div className="alert alert-info text-center mt-4">
+              No decks available.
+            </div>
           )}
         </>
       )}
