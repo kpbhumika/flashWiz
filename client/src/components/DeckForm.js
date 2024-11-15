@@ -51,12 +51,14 @@ const DeckForm = ({ deck = {}, isEditing = false }) => {
   return (
     <div className="container mt-5">
       <h2>{isEditing ? "Edit Deck" : "Create Deck"}</h2>
-      {error && <div className="alert alert-danger">{error}</div>} {/* Display error if exists */}
+      {error && <div className="alert alert-danger">{error}</div>}{" "}
+      {/* Display error if exists */}
       <form onSubmit={handleSubmit} className="mt-4">
-
         {/* Category Dropdown */}
         <div className="mb-3">
-          <label htmlFor="category" className="form-label">Category</label>
+          <label htmlFor="category" className="form-label">
+            Category
+          </label>
           <select
             className="form-select"
             id="category"
@@ -74,7 +76,9 @@ const DeckForm = ({ deck = {}, isEditing = false }) => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="title" className="form-label">Deck Title</label>
+          <label htmlFor="title" className="form-label">
+            Deck Title
+          </label>
           <input
             type="text"
             className="form-control"
@@ -86,7 +90,9 @@ const DeckForm = ({ deck = {}, isEditing = false }) => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="description" className="form-label">Description</label>
+          <label htmlFor="description" className="form-label">
+            Description
+          </label>
           <textarea
             className="form-control"
             id="description"

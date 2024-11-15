@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import "../HeroSection.css";
 
 const HomePage = () => {
@@ -7,14 +7,14 @@ const HomePage = () => {
       <div className="hero-container">
         {/* Left Section: Text Content */}
         <div className="hero-text">
-          <h1 className="hero-heading">
-            Boost Your Learning with FlashWiz!
-          </h1>
+          <h1 className="hero-heading">Boost Your Learning with FlashWiz!</h1>
           <p className="hero-subheading">
-            Master any topic with personalized flashcards and interactive learning.
+            Master any topic with personalized flashcards and interactive
+            learning.
           </p>
           <p className="hero-description">
-            Create, Study, and Retain knowledge efficiently with our flashcard app.
+            Create, Study, and Retain knowledge efficiently with our flashcard
+            app.
           </p>
           {/* <div className="cta-buttons">
             <button className="cta-button">Get Started</button>

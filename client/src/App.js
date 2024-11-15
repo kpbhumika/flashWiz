@@ -18,7 +18,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage/>,
+      element: <HomePage />,
     },
     {
       path: "/login",
@@ -30,7 +30,7 @@ function App() {
     },
     {
       path: "/decks/public/:deckId/flashcards",
-      element: <PublicFlashcards />
+      element: <PublicFlashcards />,
     },
 
     {

@@ -8,7 +8,9 @@ deckRouter.get("/", async (req, res) => {
   const categoryId = req.query.categoryId;
 
   try {
-    const decks = await Deck.query().where("isPublic", true).andWhere("categoryId", categoryId);
+    const decks = await Deck.query()
+      .where("isPublic", true)
+      .andWhere("categoryId", categoryId);
     return res.status(200).json({ decks });
   } catch (error) {
     console.error("Error fetching decks: ", error);

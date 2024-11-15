@@ -43,18 +43,21 @@ const Decks = () => {
   };
 
   const handleToggleVisibility = async (deckId, isPublic) => {
-    if (window.confirm("Are you sure you want to change the visibility of this deck?"))
-    try {
-      const updatedDeck = await updateDeckVisibility(deckId, !isPublic);
+    if (
+      window.confirm(
+        "Are you sure you want to change the visibility of this deck?",
+      )
+    )
+      try {
+        const updatedDeck = await updateDeckVisibility(deckId, !isPublic);
 
-      getUserDecks().then((decks) => {
-        setUserDecks(decks);
-      });
-
-    } catch (error) {
-      console.error("Error toggling visibility:", error);
-      alert("Failed to update deck visibility. Please try again.");
-    }
+        getUserDecks().then((decks) => {
+          setUserDecks(decks);
+        });
+      } catch (error) {
+        console.error("Error toggling visibility:", error);
+        alert("Failed to update deck visibility. Please try again.");
+      }
   };
 
   const indexOfLastDeck = currentPage * decksPerPage;
@@ -79,8 +82,19 @@ const Decks = () => {
           onClick={() => handleDeckClick(deck.id)}
         >
           {/* Dropdown positioned in top right */}
-          <div style={{ position: "absolute", top: "10px", right: "10px", zIndex: "1" }}>
-            <Dropdown as={ButtonGroup} align="end" onClick={(e) => e.stopPropagation()}>
+          <div
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              zIndex: "1",
+            }}
+          >
+            <Dropdown
+              as={ButtonGroup}
+              align="end"
+              onClick={(e) => e.stopPropagation()}
+            >
               <Dropdown.Toggle
                 variant="link"
                 className="p-0"
@@ -91,13 +105,21 @@ const Decks = () => {
                   color: "#433878",
                 }}
               >
-                <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>⋮</span>
+                <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+                  ⋮
+                </span>
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => handleEditDeck(deck.id)}>Edit</Dropdown.Item>
-                <Dropdown.Item onClick={() => handleDeleteDeck(deck.id)}>Delete</Dropdown.Item>
-                <Dropdown.Item onClick={() => handleToggleVisibility(deck.id, deck.isPublic)}>
+                <Dropdown.Item onClick={() => handleEditDeck(deck.id)}>
+                  Edit
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => handleDeleteDeck(deck.id)}>
+                  Delete
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => handleToggleVisibility(deck.id, deck.isPublic)}
+                >
                   {deck.isPublic ? "Set to Private" : "Set to Public"}
                 </Dropdown.Item>
               </Dropdown.Menu>
@@ -107,7 +129,9 @@ const Decks = () => {
           <div className="card-body d-flex flex-column flex-grow-1">
             <h5 className="card-title">{deck.title}</h5>
             <div className="flex-grow-1">
-              <p className="card-text">{deck.description || "No description available"}</p>
+              <p className="card-text">
+                {deck.description || "No description available"}
+              </p>
             </div>
             <div className="mt-3">
               <span className="badge bg-secondary">
@@ -138,20 +162,23 @@ const Decks = () => {
         <div>
           <div className="row">{decks}</div>
           <div className="d-flex justify-content-center mt-4">
-            {Array.from({ length: Math.ceil(userDecks.length / decksPerPage) }, (_, i) => (
-              <button
-                key={i + 1}
-                onClick={() => paginate(i + 1)}
-                className={`btn mx-1 ${currentPage === i + 1 ? "active" : ""}`}
-                style={{
-                  backgroundColor: "#433878",
-                  color: "white",
-                  borderColor: "#433878",
-                }}
-              >
-                {i + 1}
-              </button>
-            ))}
+            {Array.from(
+              { length: Math.ceil(userDecks.length / decksPerPage) },
+              (_, i) => (
+                <button
+                  key={i + 1}
+                  onClick={() => paginate(i + 1)}
+                  className={`btn mx-1 ${currentPage === i + 1 ? "active" : ""}`}
+                  style={{
+                    backgroundColor: "#433878",
+                    color: "white",
+                    borderColor: "#433878",
+                  }}
+                >
+                  {i + 1}
+                </button>
+              ),
+            )}
           </div>
         </div>
       ) : (

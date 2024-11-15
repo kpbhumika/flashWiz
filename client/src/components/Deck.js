@@ -4,8 +4,8 @@ import deleteFlashcard from "../apiClient/deleteFlashcard";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../Deck.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Deck = (props) => {
   const [flashcards, setFlashcards] = useState([]);
@@ -16,11 +16,10 @@ const Deck = (props) => {
 
   useEffect(() => {
     getFlashcards(deckId).then(({ deckTitle, flashcards }) => {
-      setDeckTitle(deckTitle);     // Set the deck title in state
-      setFlashcards(flashcards);    // Set the flashcards in state
+      setDeckTitle(deckTitle); // Set the deck title in state
+      setFlashcards(flashcards); // Set the flashcards in state
     });
   }, [deckId]);
-
 
   const goToNext = () => {
     if (currentIndex < flashcards.length - 1) {
@@ -44,16 +43,23 @@ const Deck = (props) => {
     const flashcardId = flashcards[currentIndex]?.id;
 
     // Ask for user confirmation before deletion
-    const confirmDelete = window.confirm("Are you sure you want to delete this flashcard?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this flashcard?",
+    );
     if (!confirmDelete) return;
 
     try {
       await deleteFlashcard(flashcardId);
-      const updatedFlashcards = flashcards.filter((_, index) => index !== currentIndex);
+      const updatedFlashcards = flashcards.filter(
+        (_, index) => index !== currentIndex,
+      );
       setFlashcards(updatedFlashcards);
 
       // Adjust current index if we delete the last flashcard
-      if (currentIndex >= updatedFlashcards.length && updatedFlashcards.length > 0) {
+      if (
+        currentIndex >= updatedFlashcards.length &&
+        updatedFlashcards.length > 0
+      ) {
         setCurrentIndex(updatedFlashcards.length - 1);
       } else if (updatedFlashcards.length === 0) {
         setCurrentIndex(0);
@@ -62,7 +68,6 @@ const Deck = (props) => {
       console.error("Failed to delete flashcard:", error);
     }
   };
-
 
   if (!flashcards || flashcards.length === 0) {
     return <p>No flashcards in this deck yet.</p>;
