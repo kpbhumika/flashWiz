@@ -1,7 +1,7 @@
 const express = require("express");
 const userDeckRouter = require("./api/userDeck.js");
 const flashcardRouter = require("./api/flashcard.js");
-const categoryRouter = require("./api/category.js")
+const categoryRouter = require("./api/category.js");
 const deckRouter = require("./api/deck.js");
 const rootRouter = new express.Router();
 

@@ -28,7 +28,9 @@ flashcardRouter.post("/", async (req, res) => {
 
   // Basic validation to check if required fields are provided
   if (!question || !answer || !deckId) {
-    return res.status(400).json({ message: "Question, answer, and deckId are required." });
+    return res
+      .status(400)
+      .json({ message: "Question, answer, and deckId are required." });
   }
 
   try {
@@ -46,9 +48,13 @@ flashcardRouter.post("/", async (req, res) => {
 
     // Enhanced error handling: Check if error is validation-related or server-related
     if (error instanceof ValidationError) {
-      res.status(400).json({ message: "Validation error", details: error.data });
+      res
+        .status(400)
+        .json({ message: "Validation error", details: error.data });
     } else {
-      res.status(500).json({ message: "Server error. Please try again later." });
+      res
+        .status(500)
+        .json({ message: "Server error. Please try again later." });
     }
   }
 });
@@ -72,6 +78,5 @@ flashcardRouter.delete("/:id", async (req, res) => {
     res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
-
 
 module.exports = flashcardRouter;

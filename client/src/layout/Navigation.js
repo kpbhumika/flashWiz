@@ -1,13 +1,15 @@
-
 import { LoginSection } from "./LoginSection";
-import "../HeroSection.css"
+import "../HeroSection.css";
 
 const Navigation = () => {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#433878' }}>
-        <div className="container-fluid" >
-          <a className="navbar-brand" href="/" style={{ color: 'white' }} >
+      <nav
+        className="navbar navbar-expand-lg"
+        style={{ backgroundColor: "#433878" }}
+      >
+        <div className="container-fluid">
+          <a className="navbar-brand" href="/" style={{ color: "white" }}>
             FlashWiz
           </a>
           <button

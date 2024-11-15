@@ -36,10 +36,6 @@ const Login = () => {
     return <Navigate to="/profile" />;
   }
 
-  return (
-    <>
-      logging in.....
-    </>
-  );
+  return <>logging in.....</>;
 };
 export default Login;

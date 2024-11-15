@@ -34,10 +34,13 @@ const FlashcardForm = ({ flashcard = {}, isEditing = false }) => {
   return (
     <div className="container mt-5">
       <h2>{isEditing ? "Edit Flashcard" : "Create Flashcard"}</h2>
-      {error && <div className="alert alert-danger">{error}</div>} {/* Display error if exists */}
+      {error && <div className="alert alert-danger">{error}</div>}{" "}
+      {/* Display error if exists */}
       <form onSubmit={handleSubmit} className="mt-4">
         <div className="mb-3">
-          <label htmlFor="question" className="form-label">Question</label>
+          <label htmlFor="question" className="form-label">
+            Question
+          </label>
           <input
             type="text"
             className="form-control"
@@ -48,7 +51,9 @@ const FlashcardForm = ({ flashcard = {}, isEditing = false }) => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="answer" className="form-label">Answer</label>
+          <label htmlFor="answer" className="form-label">
+            Answer
+          </label>
           <textarea
             className="form-control"
             id="answer"

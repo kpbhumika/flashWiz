@@ -73,20 +73,23 @@ const PublicDecks = ({ categoryId, searchTerm }) => {
                 ))}
               </div>
               <div className="d-flex justify-content-center mt-4">
-                {Array.from({ length: Math.ceil(decks.length / decksPerPage) }, (_, i) => (
-                  <button
-                    key={i + 1}
-                    onClick={() => paginate(i + 1)}
-                    className={`btn mx-1 ${currentPage === i + 1 ? "active" : ""}`}
-                    style={{
-                      backgroundColor: "#433878",
-                      color: "white",
-                      borderColor: "#433878",
-                    }}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
+                {Array.from(
+                  { length: Math.ceil(decks.length / decksPerPage) },
+                  (_, i) => (
+                    <button
+                      key={i + 1}
+                      onClick={() => paginate(i + 1)}
+                      className={`btn mx-1 ${currentPage === i + 1 ? "active" : ""}`}
+                      style={{
+                        backgroundColor: "#433878",
+                        color: "white",
+                        borderColor: "#433878",
+                      }}
+                    >
+                      {i + 1}
+                    </button>
+                  ),
+                )}
               </div>
             </div>
           ) : (

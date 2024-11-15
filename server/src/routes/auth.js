@@ -149,7 +149,6 @@ var authRouter = express.Router();
  * will be sent to the `GET /login/federated/accounts.google.com` route.
  */
 
-
 // authRouter.get("/login", function (req, res, next) {
 //   res.redirect(`${CLIENT_URL}/login`);
 // });

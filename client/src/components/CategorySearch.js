@@ -16,7 +16,7 @@ const CategorySearch = ({ onSearchChange, onCategorySelect, searchTerm }) => {
   }, []);
 
   const filteredCategories = categories.filter((category) =>
-    category.name.toLowerCase().includes(searchTerm.toLowerCase())
+    category.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleSearchChange = (e) => {
@@ -32,7 +32,10 @@ const CategorySearch = ({ onSearchChange, onCategorySelect, searchTerm }) => {
   };
 
   return (
-    <div className="position-relative" onBlur={() => setTimeout(() => setShowDropdown(false), 200)}>
+    <div
+      className="position-relative"
+      onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
+    >
       <div className="input-group">
         <div className="input-group-prepend">
           <span className="input-group-text search-icon">
@@ -50,14 +53,25 @@ const CategorySearch = ({ onSearchChange, onCategorySelect, searchTerm }) => {
         />
       </div>
       {showDropdown && (
-        <ul className="dropdown-menu show position-absolute" style={{ top: "100%", left: 0, zIndex: 1000, maxHeight: "200px", overflowY: "auto" }}>
+        <ul
+          className="dropdown-menu show position-absolute"
+          style={{
+            top: "100%",
+            left: 0,
+            zIndex: 1000,
+            maxHeight: "200px",
+            overflowY: "auto",
+          }}
+        >
           {filteredCategories.length > 0 ? (
             filteredCategories.map((category) => (
               <li key={category.id}>
                 <button
                   type="button"
                   className="dropdown-item"
-                  onClick={() => handleCategoryClick(category.name, category.id)}
+                  onClick={() =>
+                    handleCategoryClick(category.name, category.id)
+                  }
                 >
                   {category.name}
                 </button>

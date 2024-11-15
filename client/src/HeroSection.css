@@ -3,7 +3,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #e3f2fd, #ffe1ff); /* Light background gradient */
+  background: linear-gradient(
+    to right,
+    #e3f2fd,
+    #ffe1ff
+  ); /* Light background gradient */
   padding: 50px 20px;
   height: 100vh;
   color: #333;
@@ -82,8 +86,7 @@
   border-radius: 10px;
 }
 
-
 /* navbar */
-.navbar-nav .nav-link  {
+.navbar-nav .nav-link {
   color: white !important; /* Make sure this overrides other styles */
 }

@@ -21,14 +21,20 @@ userDeckRouter.get("/", async (req, res) => {
 // Create a new deck
 userDeckRouter.post("/", async (req, res) => {
   console.log(req.body);
-  const { title, userId, description = "", categoryId, isPublic = false } = req.body; // Add optional fields with default values
+  const {
+    title,
+    userId,
+    description = "",
+    categoryId,
+    isPublic = false,
+  } = req.body; // Add optional fields with default values
 
   // Basic validation to check if required fields are provided
   if (!title || !userId) {
     return res.status(400).json({ message: "Title and userId are required." });
   }
 
-  const categoryIdInt = parseInt(categoryId, 10)
+  const categoryIdInt = parseInt(categoryId, 10);
 
   try {
     // Use Knex and Objection to insert and fetch the newly created deck
@@ -47,9 +53,13 @@ userDeckRouter.post("/", async (req, res) => {
 
     // Enhanced error handling: Check if error is validation-related or server-related
     if (error instanceof ValidationError) {
-      res.status(400).json({ message: "Validation error", details: error.data });
+      res
+        .status(400)
+        .json({ message: "Validation error", details: error.data });
     } else {
-      res.status(500).json({ message: "Server error. Please try again later." });
+      res
+        .status(500)
+        .json({ message: "Server error. Please try again later." });
     }
   }
 });
@@ -61,12 +71,12 @@ userDeckRouter.delete("/:deckId", async (req, res) => {
 
   try {
     // Check if the deck exists and belongs to the user
-    const deck = await Deck.query()
-      .findById(deckId)
-      .where("userId", userId);
+    const deck = await Deck.query().findById(deckId).where("userId", userId);
 
     if (!deck) {
-      return res.status(404).json({ message: "Deck not found or not accessible." });
+      return res
+        .status(404)
+        .json({ message: "Deck not found or not accessible." });
     }
 
     // Delete the deck
@@ -76,10 +86,11 @@ userDeckRouter.delete("/:deckId", async (req, res) => {
     return res.status(200).json({ message: "Deck deleted successfully." });
   } catch (error) {
     console.error("Error deleting deck:", error);
-    return res.status(500).json({ message: "Server error. Please try again later." });
+    return res
+      .status(500)
+      .json({ message: "Server error. Please try again later." });
   }
 });
-
 
 /// Update deck visibility
 userDeckRouter.patch("/:deckId/visibility", async (req, res) => {
@@ -88,26 +99,27 @@ userDeckRouter.patch("/:deckId/visibility", async (req, res) => {
   const { isPublic } = req.body;
 
   if (typeof isPublic !== "boolean") {
-    return res.status(400).json({ message: "isPublic must be a boolean value." });
+    return res
+      .status(400)
+      .json({ message: "isPublic must be a boolean value." });
   }
 
   // Check if the deck exists and belongs to the user
-  const deck = await Deck.query()
-    .findById(deckId)
-    .where("userId", userId);
+  const deck = await Deck.query().findById(deckId).where("userId", userId);
 
   if (!deck) {
-    return res.status(404).json({ message: "Deck not found or not accessible." });
+    return res
+      .status(404)
+      .json({ message: "Deck not found or not accessible." });
   }
 
   // Update only the `isPublic` field of the deck
-  const updatedDeck = await Deck.query().patchAndFetchById(deckId, { isPublic });
+  const updatedDeck = await Deck.query().patchAndFetchById(deckId, {
+    isPublic,
+  });
 
   // Respond with the updated deck object
-  return res.status(200).json({deck: updatedDeck});
-
+  return res.status(200).json({ deck: updatedDeck });
 });
-
-
 
 module.exports = userDeckRouter;
