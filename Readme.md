@@ -97,6 +97,16 @@ This application was set up following the tutorial [“Get Started with the PERN
 - **Frontend**: React, JavaScript
 - **Others**: CORS, Dotenv
 
+## Heroku Deploy
+
+Biuld frontend changes: 
+1. go to client folder give command
+   ```yarn build```
+2. commit the changes local main.
+3. Login to heroku and do
+   ```git push heroku main```
+  
+
 ## Repository Links
 
 - **[GitHub Repository](https://github.com/kpbhumika/flashWiz)**
