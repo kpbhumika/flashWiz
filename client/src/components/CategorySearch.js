@@ -45,7 +45,7 @@ const CategorySearch = ({ onSearchChange, onCategorySelect, searchTerm }) => {
         <input
           type="search"
           className="form-control search-bar"
-          placeholder="Category filter"
+          placeholder="Search or select a category..."
           value={searchTerm}
           onChange={handleSearchChange}
           onFocus={() => setShowDropdown(true)}
