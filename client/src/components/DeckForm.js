@@ -92,6 +92,7 @@ const DeckForm = ({ isEditing = false }) => {
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
             required
+            disabled={isEditing} // Disable category select when editing
           >
             <option value="">Select a category</option>
             {categories.map((category) => (
@@ -154,3 +155,4 @@ const DeckForm = ({ isEditing = false }) => {
 };
 
 export default DeckForm;
+
