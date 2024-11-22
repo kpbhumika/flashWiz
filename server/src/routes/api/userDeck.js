@@ -66,7 +66,7 @@ userDeckRouter.post("/", async (req, res) => {
 
 // Delete a deck
 userDeckRouter.delete("/:deckId", async (req, res) => {
-  const userId = req.user.id; // Assuming user authentication middleware provides `req.user`
+  const userId = req.user.id;
   const { deckId } = req.params;
 
   try {
@@ -94,7 +94,7 @@ userDeckRouter.delete("/:deckId", async (req, res) => {
 
 /// Update deck visibility
 userDeckRouter.patch("/:deckId/visibility", async (req, res) => {
-  const userId = req.user.id; // Assuming user authentication middleware provides `req.user`
+  const userId = req.user.id;
   const { deckId } = req.params;
   const { isPublic } = req.body;
 
@@ -120,6 +120,48 @@ userDeckRouter.patch("/:deckId/visibility", async (req, res) => {
 
   // Respond with the updated deck object
   return res.status(200).json({ deck: updatedDeck });
+});
+
+
+//edit deck
+userDeckRouter.patch("/:deckId", async (req, res) => {
+  const userId = req.user.id;
+  const { deckId } = req.params;
+  const { title, description } = req.body;
+
+  // Validate that at least one field is provided
+  if (!title && !description) {
+    return res.status(400).json({
+      message: "At least one field (title or description) must be provided.",
+    });
+  }
+
+  try {
+    // Check if the deck exists and belongs to the user
+    const deck = await Deck.query().findById(deckId).where("userId", userId);
+
+    if (!deck) {
+      return res
+        .status(404)
+        .json({ message: "Deck not found or not accessible." });
+    }
+
+    // Prepare the updated fields
+    const updatedData = {};
+    if (title) updatedData.title = title;
+    if (description) updatedData.description = description;
+
+    // Update the deck and fetch the updated object
+    const updatedDeck = await Deck.query().patchAndFetchById(deckId, updatedData);
+
+    // Respond with the updated deck object
+    return res.status(200).json({ deck: updatedDeck });
+  } catch (error) {
+    console.error("Error updating deck:", error);
+    return res
+      .status(500)
+      .json({ message: "Server error. Please try again later." });
+  }
 });
 
 module.exports = userDeckRouter;

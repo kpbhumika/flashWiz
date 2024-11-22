@@ -26,5 +26,25 @@ deckRouter.get("/", async (req, res) => {
   }
 });
 
+// Fetch a single deck by its ID
+deckRouter.get("/:deckId", async (req, res) => {
+  const { deckId } = req.params;
+
+  try {
+    const deck = await Deck.query().findById(deckId);
+
+    if (!deck) {
+      return res.status(404).json({ errors: "Deck not found" });
+    }
+
+    return res.status(200).json(deck);
+  } catch (error) {
+    console.error("Error fetching deck: ", error);
+    return res
+      .status(500)
+      .json({ errors: error.message || "Internal Server Error" });
+  }
+});
+
 
 module.exports = deckRouter;

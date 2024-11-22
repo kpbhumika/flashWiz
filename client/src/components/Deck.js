@@ -70,7 +70,7 @@ const Deck = (props) => {
   };
 
   if (!flashcards || flashcards.length === 0) {
-    return <p>No flashcards in this deck yet.</p>;
+    return <p className="text-center pt-5">No flashcards in this deck yet.</p>;
   }
 
   const currentFlashcard = flashcards[currentIndex];
