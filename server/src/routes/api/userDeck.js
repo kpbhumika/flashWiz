@@ -127,7 +127,7 @@ userDeckRouter.patch("/:deckId/visibility", async (req, res) => {
 userDeckRouter.patch("/:deckId", async (req, res) => {
   const userId = req.user.id;
   const { deckId } = req.params;
-  const { title, description } = req.body;
+  const { title, description, isPublic } = req.body;
 
   // Validate that at least one field is provided
   if (!title && !description) {
@@ -150,6 +150,8 @@ userDeckRouter.patch("/:deckId", async (req, res) => {
     const updatedData = {};
     if (title) updatedData.title = title;
     if (description) updatedData.description = description;
+    if (isPublic !== undefined) updatedData.isPublic = isPublic;
+
 
     // Update the deck and fetch the updated object
     const updatedDeck = await Deck.query().patchAndFetchById(deckId, updatedData);
