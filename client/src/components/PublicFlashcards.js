@@ -37,7 +37,7 @@ const PublicFlashcards = (props) => {
   };
 
   if (!flashcards || flashcards.length === 0) {
-    return <p>No flashcards in this deck yet.</p>;
+    return <p className="text-center pt-5">No flashcards in this deck yet.</p>;
   }
 
   const currentFlashcard = flashcards[currentIndex];
@@ -52,13 +52,13 @@ const PublicFlashcards = (props) => {
       >
         <div className="card-front">
           <p>
-            <strong>Question:</strong> {currentFlashcard.question}
+            {currentFlashcard.question}
           </p>
         </div>
 
         <div className="card-back">
           <p>
-            <strong>Answer:</strong> {currentFlashcard.answer}
+            {currentFlashcard.answer}
           </p>
         </div>
       </div>

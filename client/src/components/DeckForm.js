@@ -1,33 +1,53 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
-import postDeck from "../apiClient/postDeck"; // Import the postDeck function
-import getCategories from "../apiClient/getCategories"; // Import the getCategories function
+import { useNavigate, useParams } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import postDeck from "../apiClient/postDeck";
+import updateDeck from "../apiClient/updateDeck";
+import getDeckById from "../apiClient/getDeckById"; // Fetch single deck
+import getCategories from "../apiClient/getCategories"; // Fetch categories
 import { AuthContext } from "../auth/provider/AuthProvider";
 
-const DeckForm = ({ deck = {}, isEditing = false }) => {
-  const [title, setTitle] = useState(deck.title || "");
-  const [description, setDescription] = useState(deck.description || "");
-  const [isPublic, setIsPublic] = useState(deck.isPublic || false);
-  const [categoryId, setCategoryId] = useState(deck.categoryId || ""); // New state for category
-  const [categories, setCategories] = useState([]); // New state for categories
-  const [error, setError] = useState(""); // State for error handling
-  const { isUserFetched, currentUser } = useContext(AuthContext); // Get currentUser from context
-  const navigate = useNavigate();
+const DeckForm = ({ isEditing = false }) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [isPublic, setIsPublic] = useState(false);
+  const [categoryId, setCategoryId] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState("");
 
-  // Use currentUser.id for userId, if currentUser is not available, default to 0
+  const { isUserFetched, currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { deckId } = useParams(); // Get deckId from the URL
+
   const userId = currentUser ? currentUser.id : 0;
 
-  // Fetch categories when the component mounts
   useEffect(() => {
+    // Fetch categories
     const fetchCategories = async () => {
       const fetchedCategories = await getCategories();
       setCategories(fetchedCategories);
     };
-    fetchCategories();
-  }, []);
 
-  // Marking the function as async
+    // Fetch deck data for editing
+    const fetchDeckData = async () => {
+      if (isEditing && deckId) {
+        try {
+          const fetchedDeck = await getDeckById(deckId);
+          setTitle(fetchedDeck.title); // Prefill title
+          setDescription(fetchedDeck.description); // Prefill description
+          setIsPublic(fetchedDeck.isPublic); // Prefill visibility
+          setCategoryId(fetchedDeck.categoryId); // Prefill category
+        } catch (error) {
+          console.error("Error fetching deck:", error.message);
+          setError("Failed to load the deck. Please try again.");
+        }
+      }
+    };
+
+    fetchCategories();
+    fetchDeckData();
+  }, [isEditing, deckId]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -39,20 +59,27 @@ const DeckForm = ({ deck = {}, isEditing = false }) => {
       categoryId,
     };
 
-    console.log(deckData);
     try {
-      await postDeck(deckData); // Call the postDeck function to send the data
-      navigate("/decks"); // Navigate back to the decks list after submission
+      if (isEditing) {
+        await updateDeck(deckId, deckData); // Update existing deck
+        navigate("/decks");
+      } else {
+        await postDeck(deckData); // Create new deck
+        navigate("/decks");
+      }
     } catch (error) {
-      setError("Failed to create deck. Please try again."); // Set error message on failure
+      setError(
+        isEditing
+          ? "Failed to update deck. Please try again."
+          : "Failed to create deck. Please try again."
+      );
     }
   };
 
   return (
     <div className="container mt-5">
       <h2>{isEditing ? "Edit Deck" : "Create Deck"}</h2>
-      {error && <div className="alert alert-danger">{error}</div>}{" "}
-      {/* Display error if exists */}
+      {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit} className="mt-4">
         {/* Category Dropdown */}
         <div className="mb-3">
@@ -65,6 +92,7 @@ const DeckForm = ({ deck = {}, isEditing = false }) => {
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
             required
+            disabled={isEditing} // Disable category select when editing
           >
             <option value="">Select a category</option>
             {categories.map((category) => (
@@ -127,3 +155,4 @@ const DeckForm = ({ deck = {}, isEditing = false }) => {
 };
 
 export default DeckForm;
+

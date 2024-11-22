@@ -66,6 +66,14 @@ function App() {
       ),
     },
     {
+      path: "/decks/:deckId/edit",
+      element: (
+        <Authenticate>
+          <DeckForm isEditing={true}/>
+        </Authenticate>
+      ),
+    },
+    {
       path: "/decks/:deckId/add-flashcard",
       element: (
         <Authenticate>
