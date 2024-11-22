@@ -52,13 +52,13 @@ const PublicFlashcards = (props) => {
       >
         <div className="card-front">
           <p>
-            <strong>Question:</strong> {currentFlashcard.question}
+            {currentFlashcard.question}
           </p>
         </div>
 
         <div className="card-back">
           <p>
-            <strong>Answer:</strong> {currentFlashcard.answer}
+            {currentFlashcard.answer}
           </p>
         </div>
       </div>

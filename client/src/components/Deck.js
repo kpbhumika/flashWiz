@@ -95,13 +95,13 @@ const Deck = (props) => {
             <FontAwesomeIcon icon={faTrash} />
           </button>
           <p>
-            <strong>Question:</strong> {currentFlashcard.question}
+            {currentFlashcard.question}
           </p>
         </div>
 
         <div className="card-back">
           <p>
-            <strong>Answer:</strong> {currentFlashcard.answer}
+            {currentFlashcard.answer}
           </p>
         </div>
       </div>
