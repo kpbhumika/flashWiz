@@ -4,7 +4,6 @@ import { Dropdown, ButtonGroup } from "react-bootstrap";
 import getUserDecks from "../apiClient/getUserDecks";
 import deleteDeck from "../apiClient/deleteDeck";
 import updateDeckVisibility from "../apiClient/updateDeckVisibility";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const Decks = () => {
   const [userDecks, setUserDecks] = useState([]);

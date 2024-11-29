@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import getFlashcards from "../apiClient/getFlashcards";
 import { useParams } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../Deck.css";
 
 const PublicFlashcards = (props) => {

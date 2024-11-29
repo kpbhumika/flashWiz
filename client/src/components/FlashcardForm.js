@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import postFlashcard from "../apiClient/postFlashcard";
 import updateFlashcard from "../apiClient/updateFlashcard";
 import getFlashcardById from "../apiClient/getFlashcardById"; // Fetch flashcard by ID
