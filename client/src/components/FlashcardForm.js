@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import postFlashcard from "../apiClient/postFlashcard"; // Import the postFlashcard function
 
 const FlashcardForm = ({ flashcard = {}, isEditing = false }) => {
