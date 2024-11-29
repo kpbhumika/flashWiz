@@ -6,6 +6,26 @@ const { ValidationError } = require("objection");
 
 const flashcardRouter = express.Router();
 
+// Fetch a single flashcard by its ID
+flashcardRouter.get("/:flashcardId", async (req, res) => {
+  const { flashcardId } = req.params;
+
+  try {
+    const flashcard = await Flashcard.query().findById(flashcardId);
+
+    if (!flashcard) {
+      return res.status(404).json({ errors: "Deck not found" });
+    }
+
+    return res.status(200).json(flashcard);
+  } catch (error) {
+    console.error("Error fetching flashcard: ", error);
+    return res
+      .status(500)
+      .json({ errors: error.message || "Internal Server Error" });
+  }
+});
+
 // Fetch all flashcards for a deck
 flashcardRouter.get("/", async (req, res) => {
   const deckId = req.query.deckId;
@@ -78,5 +98,37 @@ flashcardRouter.delete("/:id", async (req, res) => {
     res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
+
+// Update a specific flashcard by ID
+flashcardRouter.patch("/:flashcardId", async (req, res) => {
+  const { flashcardId } = req.params;
+  const { question, answer } = req.body;
+
+  // Basic validation to ensure question and answer are provided
+  if (!question || !answer) {
+    return res.status(400).json({ message: "Question and answer are required." });
+  }
+
+  try {
+    // Find the flashcard by ID to ensure it exists
+    const flashcard = await Flashcard.query().findById(flashcardId);
+
+    if (!flashcard) {
+      // If flashcard does not exist
+      return res.status(404).json({ message: "Flashcard not found" });
+    }
+
+    // Update the flashcard with the new data
+    const updatedFlashcard = await Flashcard.query()
+      .patchAndFetchById(flashcardId, { question, answer });
+
+    // Respond with the updated flashcard
+    res.status(200).json({flashcard: updatedFlashcard});
+  } catch (error) {
+    console.error("Error updating flashcard:", error);
+    res.status(500).json({ message: "Server error. Please try again later." });
+  }
+});
+
 
 module.exports = flashcardRouter;

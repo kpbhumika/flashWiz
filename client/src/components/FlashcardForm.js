@@ -1,19 +1,37 @@
-import React, { useState, useContext } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
-import postFlashcard from "../apiClient/postFlashcard"; // Import the postFlashcard function
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import postFlashcard from "../apiClient/postFlashcard";
+import updateFlashcard from "../apiClient/updateFlashcard";
+import getFlashcardById from "../apiClient/getFlashcardById"; // Fetch flashcard by ID
 
-const FlashcardForm = ({ flashcard = {}, isEditing = false }) => {
-  const [question, setQuestion] = useState(flashcard.question || "");
-  const [answer, setAnswer] = useState(flashcard.answer || "");
-  const [error, setError] = useState(""); // State for error handling
+const FlashcardForm = ({ isEditing = false }) => {
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { deckId: deckIdParam } = useParams();
+  const { deckId: deckIdParam, flashcardId } = useParams();
   const deckId = parseInt(deckIdParam, 10);
 
-  // Marking the function as async
+  // Fetch flashcard data for editing
+  useEffect(() => {
+    if (isEditing && flashcardId) {
+      const fetchFlashcardData = async () => {
+        try {
+          const fetchedFlashcard = await getFlashcardById(flashcardId);
+          setQuestion(fetchedFlashcard.question); // Prefill question
+          setAnswer(fetchedFlashcard.answer); // Prefill answer
+        } catch (error) {
+          console.error("Error fetching flashcard:", error.message);
+          setError("Failed to load the flashcard. Please try again.");
+        }
+      };
+
+      fetchFlashcardData();
+    }
+  }, [isEditing, flashcardId]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -24,18 +42,22 @@ const FlashcardForm = ({ flashcard = {}, isEditing = false }) => {
     };
 
     try {
-      await postFlashcard(flashcardData); // Call the postFlashcard function to send the data
-      navigate(`/decks/${deckId}/flashcards`); // Navigate back to the flashcards list after submission
+      if (isEditing) {
+        await updateFlashcard(flashcardId, flashcardData); // Update existing flashcard
+        navigate(`/decks/${deckId}/flashcards`);
+      } else {
+        await postFlashcard(flashcardData); // Create new flashcard
+        navigate(`/decks/${deckId}/flashcards`);
+      }
     } catch (error) {
-      setError("Failed to create flashcard. Please try again."); // Set error message on failure
+      setError("Failed to " + (isEditing ? "update" : "create") + " flashcard. Please try again.");
     }
   };
 
   return (
     <div className="container mt-5">
       <h2>{isEditing ? "Edit Flashcard" : "Create Flashcard"}</h2>
-      {error && <div className="alert alert-danger">{error}</div>}{" "}
-      {/* Display error if exists */}
+      {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit} className="mt-4">
         <div className="mb-3">
           <label htmlFor="question" className="form-label">
