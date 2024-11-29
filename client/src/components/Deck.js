@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import getFlashcards from "../apiClient/getFlashcards";
 import deleteFlashcard from "../apiClient/deleteFlashcard";
-import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../Deck.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import Dropdown from "react-bootstrap/Dropdown";
+import { ButtonGroup } from "react-bootstrap";
 
 const Deck = (props) => {
   const [flashcards, setFlashcards] = useState([]);
@@ -13,11 +13,12 @@ const Deck = (props) => {
   const { deckId } = useParams();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getFlashcards(deckId).then(({ deckTitle, flashcards }) => {
-      setDeckTitle(deckTitle); // Set the deck title in state
-      setFlashcards(flashcards); // Set the flashcards in state
+      setDeckTitle(deckTitle);
+      setFlashcards(flashcards);
     });
   }, [deckId]);
 
@@ -42,20 +43,18 @@ const Deck = (props) => {
   const handleDelete = async () => {
     const flashcardId = flashcards[currentIndex]?.id;
 
-    // Ask for user confirmation before deletion
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this flashcard?",
+      "Are you sure you want to delete this flashcard?"
     );
     if (!confirmDelete) return;
 
     try {
       await deleteFlashcard(flashcardId);
       const updatedFlashcards = flashcards.filter(
-        (_, index) => index !== currentIndex,
+        (_, index) => index !== currentIndex
       );
       setFlashcards(updatedFlashcards);
 
-      // Adjust current index if we delete the last flashcard
       if (
         currentIndex >= updatedFlashcards.length &&
         updatedFlashcards.length > 0
@@ -67,6 +66,11 @@ const Deck = (props) => {
     } catch (error) {
       console.error("Failed to delete flashcard:", error);
     }
+  };
+
+  const handleEdit = () => {
+    const flashcardId = flashcards[currentIndex]?.id;
+    navigate(`/decks/${deckId}/flashcards/${flashcardId}/edit`);
   };
 
   if (!flashcards || flashcards.length === 0) {
@@ -82,27 +86,50 @@ const Deck = (props) => {
       <div
         className={`card flashcard ${showAnswer ? "flipped" : ""}`}
         onClick={toggleShowAnswer}
+        style={{
+          position: "relative",
+        }}
       >
         <div className="card-front">
-          <button
-            className="btn btn-danger btn-sm delete-button"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDelete();
+          {/* Dropdown positioned in top right */}
+          <div
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              zIndex: "1",
             }}
-            aria-label="Delete flashcard"
           >
-            <FontAwesomeIcon icon={faTrash} />
-          </button>
-          <p>
-            {currentFlashcard.question}
-          </p>
+            <Dropdown
+              as={ButtonGroup}
+              align="end"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Dropdown.Toggle
+                variant="link"
+                className="p-0"
+                style={{
+                  textDecoration: "none",
+                  border: "none",
+                  backgroundColor: "transparent",
+                  color: "#433878",
+                }}
+              >
+                <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>⋮</span>
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
+                <Dropdown.Item onClick={handleDelete}>Delete</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+
+          <p>{currentFlashcard.question}</p>
         </div>
 
         <div className="card-back">
-          <p>
-            {currentFlashcard.answer}
-          </p>
+          <p>{currentFlashcard.answer}</p>
         </div>
       </div>
 
