@@ -71,7 +71,7 @@ const DeckForm = ({ isEditing = false }) => {
       setError(
         isEditing
           ? "Failed to update deck. Please try again."
-          : "Failed to create deck. Please try again."
+          : "Failed to create deck. Please try again.",
       );
     }
   };
@@ -155,4 +155,3 @@ const DeckForm = ({ isEditing = false }) => {
 };
 
 export default DeckForm;
-

@@ -122,7 +122,6 @@ userDeckRouter.patch("/:deckId/visibility", async (req, res) => {
   return res.status(200).json({ deck: updatedDeck });
 });
 
-
 //edit deck
 userDeckRouter.patch("/:deckId", async (req, res) => {
   const userId = req.user.id;
@@ -152,9 +151,11 @@ userDeckRouter.patch("/:deckId", async (req, res) => {
     if (description) updatedData.description = description;
     if (isPublic !== undefined) updatedData.isPublic = isPublic;
 
-
     // Update the deck and fetch the updated object
-    const updatedDeck = await Deck.query().patchAndFetchById(deckId, updatedData);
+    const updatedDeck = await Deck.query().patchAndFetchById(
+      deckId,
+      updatedData,
+    );
 
     // Respond with the updated deck object
     return res.status(200).json({ deck: updatedDeck });

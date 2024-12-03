@@ -16,7 +16,11 @@ const PORT = process.env.PORT || 9000;
 const app = express();
 
 // Step1: Middleware
-const allowedOrigins = ["http://localhost:3000", "http://localhost:9000", "https://flashwiz-3b670dc3d6b4.herokuapp.com"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:9000",
+  "https://flashwiz-3b670dc3d6b4.herokuapp.com",
+];
 app.use(
   cors({
     credentials: true,

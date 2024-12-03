@@ -50,15 +50,11 @@ const PublicFlashcards = (props) => {
         onClick={toggleShowAnswer}
       >
         <div className="card-front">
-          <p>
-            {currentFlashcard.question}
-          </p>
+          <p>{currentFlashcard.question}</p>
         </div>
 
         <div className="card-back">
-          <p>
-            {currentFlashcard.answer}
-          </p>
+          <p>{currentFlashcard.answer}</p>
         </div>
       </div>
 

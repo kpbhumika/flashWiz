@@ -49,7 +49,11 @@ const FlashcardForm = ({ isEditing = false }) => {
         navigate(`/decks/${deckId}/flashcards`);
       }
     } catch (error) {
-      setError("Failed to " + (isEditing ? "update" : "create") + " flashcard. Please try again.");
+      setError(
+        "Failed to " +
+          (isEditing ? "update" : "create") +
+          " flashcard. Please try again.",
+      );
     }
   };
 

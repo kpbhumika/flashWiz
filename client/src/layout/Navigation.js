@@ -1,7 +1,7 @@
 import { LoginSection } from "./LoginSection";
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container } from "react-bootstrap";
 import "../HeroSection.css";
-import React from 'react';
+import React from "react";
 
 const Navigation = () => {
   return (
