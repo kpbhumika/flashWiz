@@ -50,9 +50,23 @@ const renderComponent = (isEditing = false) => {
   );
 };
 
-test("renders edit deck form", async () => {
+test("renders edit deck form in edit mode", async () => {
   renderComponent(true);
   await waitFor(() => {
-    expect(screen.getByText("Edit Deck")).toBeInTheDocument();
+    const button = screen.getAllByText("Update Deck").find((element) => element.tagName === "BUTTON");
+    const heading = screen.getAllByText("Edit Deck").find((element) => element.tagName === "H2");
+    expect(button).toBeInTheDocument();
+    expect(heading).toBeInTheDocument();
+  });
+});
+
+test("renders create deck form in create mode", async () => {
+  renderComponent(false);
+  await waitFor(() => {
+    const elements = screen.getAllByText("Create Deck");
+    const button = elements.find((element) => element.tagName === "BUTTON");
+    const heading = elements.find((element) => element.tagName === "H2");
+    expect(button).toBeInTheDocument();
+    expect(heading).toBeInTheDocument();
   });
 });
