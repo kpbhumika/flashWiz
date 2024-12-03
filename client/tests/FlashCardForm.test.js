@@ -21,7 +21,7 @@ const mockUseParams = useParams;
 
 const currentUser = { id: 999, name: "Test User" };
 
-const renderComponent = (isEditing = false) => {
+const renderComponent = (isEditing) => {
   return render(
     <AuthContext.Provider value={{ isUserFetched: true, currentUser }}>
       <Router>
@@ -41,13 +41,23 @@ beforeEach(() => {
 
 
 test("renders create flashcard form", async () => {
-  renderComponent();
+  const isEditing = false;
+  renderComponent(isEditing);
   await waitFor(() => {
     const elements = screen.getAllByText("Create Flashcard");
-    console.log("elements found", elements); 
     const button = elements.find((element) => element.tagName === "BUTTON");
     const heading = elements.find((element) => element.tagName === "H2");
-    console.log("button", button, "heading", heading);
+    expect(button).toBeInTheDocument();
+    expect(heading).toBeInTheDocument();
+  });
+});
+
+test("renders edit flashcard form", async () => {
+  const isEditing = true;
+  renderComponent(isEditing);
+  await waitFor(() => {    
+    const button = screen.getAllByText("Update Flashcard").find((element) => element.tagName === "BUTTON");
+    const heading = screen.getAllByText("Edit Flashcard").find((element) => element.tagName === "H2");
     expect(button).toBeInTheDocument();
     expect(heading).toBeInTheDocument();
   });
