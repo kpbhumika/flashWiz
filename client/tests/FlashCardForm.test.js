@@ -18,7 +18,6 @@ jest.mock("../src/apiClient/getFlashcardById");
 
 const mockUseParams = useParams;
 
-
 const currentUser = { id: 999, name: "Test User" };
 
 const renderComponent = (isEditing) => {
@@ -27,18 +26,18 @@ const renderComponent = (isEditing) => {
       <Router>
         <FlashcardForm isEditing={isEditing} />
       </Router>
-    </AuthContext.Provider>
+    </AuthContext.Provider>,
   );
-
-}
+};
 
 beforeEach(() => {
   jest.clearAllMocks();
   mockUseParams.mockReturnValue({ deckId: "1234" });
-  getFlashcardById.mockResolvedValue({ question: "Test Question", answer: "Test Answer" });
-
+  getFlashcardById.mockResolvedValue({
+    question: "Test Question",
+    answer: "Test Answer",
+  });
 });
-
 
 test("renders create flashcard form", async () => {
   const isEditing = false;
@@ -55,16 +54,17 @@ test("renders create flashcard form", async () => {
 test("renders edit flashcard form", async () => {
   const isEditing = true;
   renderComponent(isEditing);
-  await waitFor(() => {    
-    const button = screen.getAllByText("Update Flashcard").find((element) => element.tagName === "BUTTON");
-    const heading = screen.getAllByText("Edit Flashcard").find((element) => element.tagName === "H2");
+  await waitFor(() => {
+    const button = screen
+      .getAllByText("Update Flashcard")
+      .find((element) => element.tagName === "BUTTON");
+    const heading = screen
+      .getAllByText("Edit Flashcard")
+      .find((element) => element.tagName === "H2");
     expect(button).toBeInTheDocument();
     expect(heading).toBeInTheDocument();
   });
 });
-
-
-
 
 test("getFlashcardById is called when the form is in edit mode", async () => {
   mockUseParams.mockReturnValue({ deckId: "111", flashcardId: "222" });

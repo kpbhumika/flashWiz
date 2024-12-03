@@ -44,14 +44,14 @@ const Deck = (props) => {
     const flashcardId = flashcards[currentIndex]?.id;
 
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this flashcard?"
+      "Are you sure you want to delete this flashcard?",
     );
     if (!confirmDelete) return;
 
     try {
       await deleteFlashcard(flashcardId);
       const updatedFlashcards = flashcards.filter(
-        (_, index) => index !== currentIndex
+        (_, index) => index !== currentIndex,
       );
       setFlashcards(updatedFlashcards);
 
@@ -115,7 +115,9 @@ const Deck = (props) => {
                   color: "#433878",
                 }}
               >
-                <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>⋮</span>
+                <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+                  ⋮
+                </span>
               </Dropdown.Toggle>
 
               <Dropdown.Menu>

@@ -46,15 +46,19 @@ const renderComponent = (isEditing = false) => {
       <Router>
         <DeckForm isEditing={isEditing} />
       </Router>
-    </AuthContext.Provider>
+    </AuthContext.Provider>,
   );
 };
 
 test("renders edit deck form in edit mode", async () => {
   renderComponent(true);
   await waitFor(() => {
-    const button = screen.getAllByText("Update Deck").find((element) => element.tagName === "BUTTON");
-    const heading = screen.getAllByText("Edit Deck").find((element) => element.tagName === "H2");
+    const button = screen
+      .getAllByText("Update Deck")
+      .find((element) => element.tagName === "BUTTON");
+    const heading = screen
+      .getAllByText("Edit Deck")
+      .find((element) => element.tagName === "H2");
     expect(button).toBeInTheDocument();
     expect(heading).toBeInTheDocument();
   });

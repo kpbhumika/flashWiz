@@ -4,4 +4,4 @@
 // learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
 // import '@testing-library/jest-dom/extend-expect';  // if you are using Testing Library
-jest.mock('bootstrap/dist/css/bootstrap.min.css', () => {});
+jest.mock("bootstrap/dist/css/bootstrap.min.css", () => {});

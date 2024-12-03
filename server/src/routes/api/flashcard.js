@@ -106,7 +106,9 @@ flashcardRouter.patch("/:flashcardId", async (req, res) => {
 
   // Basic validation to ensure question and answer are provided
   if (!question || !answer) {
-    return res.status(400).json({ message: "Question and answer are required." });
+    return res
+      .status(400)
+      .json({ message: "Question and answer are required." });
   }
 
   try {
@@ -119,16 +121,17 @@ flashcardRouter.patch("/:flashcardId", async (req, res) => {
     }
 
     // Update the flashcard with the new data
-    const updatedFlashcard = await Flashcard.query()
-      .patchAndFetchById(flashcardId, { question, answer });
+    const updatedFlashcard = await Flashcard.query().patchAndFetchById(
+      flashcardId,
+      { question, answer },
+    );
 
     // Respond with the updated flashcard
-    res.status(200).json({flashcard: updatedFlashcard});
+    res.status(200).json({ flashcard: updatedFlashcard });
   } catch (error) {
     console.error("Error updating flashcard:", error);
     res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
-
 
 module.exports = flashcardRouter;

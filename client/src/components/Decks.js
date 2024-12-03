@@ -93,6 +93,7 @@ const Decks = () => {
               as={ButtonGroup}
               align="end"
               onClick={(e) => e.stopPropagation()}
+              data-testid="kebab-menu-deck-options"
             >
               <Dropdown.Toggle
                 variant="link"

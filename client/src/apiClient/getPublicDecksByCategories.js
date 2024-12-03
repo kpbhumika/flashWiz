@@ -1,7 +1,9 @@
 const getPublicDecksByCategories = async (categoryId) => {
   try {
     // Conditionally add categoryId to the query string if it exists
-    const url = categoryId ? `/api/decks?categoryId=${categoryId}` : `/api/decks`;
+    const url = categoryId
+      ? `/api/decks?categoryId=${categoryId}`
+      : `/api/decks`;
     const response = await fetch(url);
 
     if (!response.ok) {

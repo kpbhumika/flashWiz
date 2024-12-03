@@ -69,7 +69,7 @@ function App() {
       path: "/decks/:deckId/flashcards/:flashcardId/edit",
       element: (
         <Authenticate>
-          <FlashcardForm isEditing={true}/>
+          <FlashcardForm isEditing={true} />
         </Authenticate>
       ),
     },
@@ -77,7 +77,7 @@ function App() {
       path: "/decks/:deckId/edit",
       element: (
         <Authenticate>
-          <DeckForm isEditing={true}/>
+          <DeckForm isEditing={true} />
         </Authenticate>
       ),
     },
