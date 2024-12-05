@@ -111,6 +111,7 @@ const DeckForm = ({ isEditing = false }) => {
             type="text"
             className="form-control"
             id="title"
+            data-testid="deck-title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required

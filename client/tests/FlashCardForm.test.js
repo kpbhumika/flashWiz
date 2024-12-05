@@ -5,16 +5,16 @@ import FlashcardForm from "../src/components/FlashcardForm";
 import { AuthContext } from "../src/auth/provider/AuthProvider";
 import { useParams } from "react-router-dom";
 import getFlashcardById from "../src/apiClient/getFlashcardById";
+import updateFlashcard from "../src/apiClient/updateFlashcard";
+import userEvent from "@testing-library/user-event";
+
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useParams: jest.fn(),
 }));
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useParams: jest.fn(),
-}));
 jest.mock("../src/apiClient/getFlashcardById");
+jest.mock("../src/apiClient/updateFlashcard");
 
 const mockUseParams = useParams;
 
@@ -37,6 +37,7 @@ beforeEach(() => {
     question: "Test Question",
     answer: "Test Answer",
   });
+  updateFlashcard.mockResolvedValue();
 });
 
 test("renders create flashcard form", async () => {
@@ -72,5 +73,23 @@ test("getFlashcardById is called when the form is in edit mode", async () => {
   await waitFor(() => {
     expect(getFlashcardById).toHaveBeenCalledTimes(1);
     expect(getFlashcardById).toHaveBeenCalledWith("222");
+  });
+});
+
+test("form submission calls updateFlashcard when in edit mode", async () => {
+  
+  render(
+    <AuthContext.Provider value={{ isUserFetched: true, currentUser }}>
+      <Router>
+        <FlashcardForm isEditing={true} updateFlashcard={updateFlashcard} />
+      </Router>
+    </AuthContext.Provider>,
+  );
+
+  await userEvent.type(screen.getByLabelText("Question"), "Updated Question");
+  await userEvent.type(screen.getByLabelText("Answer"), "Updated Answer");
+  await waitFor(() => {
+    fireEvent.click(screen.getByText("Update Flashcard"));
+    expect(updateFlashcard).toHaveBeenCalledTimes(1);
   });
 });

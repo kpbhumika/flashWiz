@@ -5,3 +5,4 @@
 import "@testing-library/jest-dom";
 // import '@testing-library/jest-dom/extend-expect';  // if you are using Testing Library
 jest.mock("bootstrap/dist/css/bootstrap.min.css", () => {});
+global.console.warn = jest.fn();
