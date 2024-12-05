@@ -8,7 +8,6 @@ import getFlashcardById from "../src/apiClient/getFlashcardById";
 import updateFlashcard from "../src/apiClient/updateFlashcard";
 import userEvent from "@testing-library/user-event";
 
-
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useParams: jest.fn(),
@@ -77,7 +76,6 @@ test("getFlashcardById is called when the form is in edit mode", async () => {
 });
 
 test("form submission calls updateFlashcard when in edit mode", async () => {
-  
   render(
     <AuthContext.Provider value={{ isUserFetched: true, currentUser }}>
       <Router>

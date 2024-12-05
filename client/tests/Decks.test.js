@@ -10,7 +10,7 @@ import userEvent from "@testing-library/user-event";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
-  useNavigate: jest.fn()  // mock the useNavigate hook
+  useNavigate: jest.fn(), // mock the useNavigate hook
 }));
 jest.mock("../src/apiClient/getUserDecks");
 jest.mock("../src/apiClient/deleteDeck");
@@ -72,7 +72,7 @@ test("renders Decks component", async () => {
 test("handles deck click", async () => {
   const navigate = jest.fn();
   useNavigate.mockReturnValue(navigate);
-  
+
   render(
     <AuthContext.Provider value={{ isUserFetched: true }}>
       <Router>
@@ -95,7 +95,7 @@ test("handles deck click", async () => {
 test("handles add flashcard", async () => {
   const navigate = jest.fn();
   useNavigate.mockReturnValue(navigate);
-  
+
   render(
     <AuthContext.Provider value={{ isUserFetched: true }}>
       <Router>
@@ -115,7 +115,6 @@ test("handles add flashcard", async () => {
   await waitFor(() => {
     expect(navigate).toHaveBeenCalledWith("/decks/1/add-flashcard");
   });
-  
 });
 
 test("handles toggle visibility", async () => {
