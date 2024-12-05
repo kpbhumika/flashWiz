@@ -81,7 +81,7 @@ test("renders create deck form in create mode", async () => {
 
 test("submits the form with the correct data", async () => {
   renderComponent(false);
-  
+
   await waitFor(() => {
     // wait for the category options to be added to the select element
     const select = screen.getByLabelText("Category");
@@ -91,21 +91,20 @@ test("submits the form with the correct data", async () => {
   });
 
   const deckTitleInput = screen.getByLabelText("Deck Title");
-  await userEvent.type(deckTitleInput, 'Test Title 1');
+  await userEvent.type(deckTitleInput, "Test Title 1");
 
   const deckDescriptionInput = screen.getByLabelText("Description");
-  await userEvent.type(deckDescriptionInput, 'Test Description 1');
+  await userEvent.type(deckDescriptionInput, "Test Description 1");
 
-  // ensure the values are set on the inputs 
+  // ensure the values are set on the inputs
   expect(screen.getByTestId("deck-title")).toHaveValue("Test Title 1");
-
 
   const createDeckElements = screen.getAllByText("Create Deck");
   const createDeckButton = createDeckElements.find(
     (element) => element.tagName === "BUTTON",
   );
   userEvent.click(createDeckButton);
-  
+
   await waitFor(() => {
     expect(postDeck).toHaveBeenCalledWith({
       title: "Test Title 1",
