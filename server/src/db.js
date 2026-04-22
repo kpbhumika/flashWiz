@@ -2,26 +2,42 @@
 const { Pool } = require("pg");
 const knex = require("knex");
 
-// Create a PostgreSQL connection pool
-const pool = new Pool({
-  user: process.env["POSTGRES_USER"],
-  host: process.env["POSTGRES_HOST"],
-  database: process.env["POSTGRES_DB"],
-  password: process.env["POSTGRES_PASSWORD"],
-  port: process.env["POSTGRES_PORT"],
-});
+function getPgConfig() {
+  const nodeEnv = process.env.NODE_ENV || "development";
+  const isLocalDev = ["development", "test", "e2e"].includes(nodeEnv);
 
-// Create a Knex instance
+  const databaseUrl =
+    !isLocalDev && process.env.DATABASE_URL
+      ? process.env.DATABASE_URL
+      : null;
+
+  if (databaseUrl) {
+    const isLocal =
+      /localhost|127\.0\.0\.1/.test(databaseUrl) ||
+      /@host\.docker\.internal/.test(databaseUrl);
+    const config = { connectionString: databaseUrl };
+    if (!isLocal) {
+      config.ssl = { rejectUnauthorized: false };
+    }
+    return config;
+  }
+
+  return {
+    user: process.env["POSTGRES_USER"],
+    host: process.env["POSTGRES_HOST"],
+    database: process.env["POSTGRES_DB"],
+    password: process.env["POSTGRES_PASSWORD"],
+    port: process.env["POSTGRES_PORT"],
+  };
+}
+
+const connection = getPgConfig();
+
+const pool = new Pool(connection);
+
 const knexInstance = knex({
   client: "pg",
-  connection: {
-    host: process.env["POSTGRES_HOST"],
-    user: process.env["POSTGRES_USER"],
-    password: process.env["POSTGRES_PASSWORD"],
-    database: process.env["POSTGRES_DB"],
-    port: process.env["POSTGRES_PORT"],
-  },
+  connection,
 });
 
-// Export both the pool and the Knex instance
 module.exports = { pool, knex: knexInstance };
