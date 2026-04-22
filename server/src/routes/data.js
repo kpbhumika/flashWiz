@@ -1,6 +1,6 @@
 // backend/routes/data.js
 const express = require("express");
-const pool = require("../db"); // Import the database connection
+const { pool } = require("../db"); // Import the database connection
 
 const router = express.Router();
 

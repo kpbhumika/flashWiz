@@ -9,7 +9,8 @@
     "format": "prettier --write .",
     "check": "prettier --check .",
     "migrate:latest": "knex --knexfile ./knexfile.cjs migrate:latest",
-    "migrate:make": "knex --knexfile ./knexfile.cjs migrate:make"
+    "migrate:make": "knex --knexfile ./knexfile.cjs migrate:make",
+    "migrate:neon": "sh -c 'export DATABASE_URL=\"$(heroku config:get DATABASE_URL -a flashwiz)\" && NODE_ENV=production knex migrate:latest --knexfile ./knexfile.cjs'"
   },
   "repository": {
     "type": "git",
